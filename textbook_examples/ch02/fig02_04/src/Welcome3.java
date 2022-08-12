@@ -8,7 +8,7 @@ public class Welcome3 {
     } // end method main
 } // end class Welcome3
 
-/**************************************************************************
+/* ************************************************************************
  * (C) Copyright 1992-2014 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *

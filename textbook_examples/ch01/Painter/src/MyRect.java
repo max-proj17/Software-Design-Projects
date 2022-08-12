@@ -29,7 +29,7 @@ public class MyRect extends MyBoundedShape {
 } // end class MyRect
 
 
-/**************************************************************************
+/* ************************************************************************
  * (C) Copyright 1992-2014 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *

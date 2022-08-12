@@ -20,7 +20,7 @@ public class StackInheritance<T> extends List<T> {
 } // end class StackInheritance
 
 
-/**************************************************************************
+/* ************************************************************************
  * (C) Copyright 1992-2014 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *

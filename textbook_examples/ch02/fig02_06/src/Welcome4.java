@@ -9,7 +9,7 @@ public class Welcome4 {
     } // end method main
 } // end class Welcome4
 
-/**************************************************************************
+/* ************************************************************************
  * (C) Copyright 1992-2014 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *

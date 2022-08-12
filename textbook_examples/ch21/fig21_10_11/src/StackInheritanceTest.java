@@ -34,7 +34,7 @@ public class StackInheritanceTest {
 } // end class StackInheritanceTest
 
 
-/**************************************************************************
+/* ************************************************************************
  * (C) Copyright 1992-2014 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *
