@@ -30,46 +30,46 @@ public class Customer {
         deductedAMTS.put(25, 0); deductedAMTS.put(10, 0); deductedAMTS.put(5, 0); deductedAMTS.put(1, 0);
         deductedAMTS.put(20, 0); deductedAMTS.put(8, 0); deductedAMTS.put(55, 0); deductedAMTS.put(11, 0);
 
-        while(customerSWDBalance != 0) //deduction code for each unit of currency
+        while(customerSWDBalance != 0f) //deduction code for each unit of currency
         {
-            if(customerSWDBalance > 25)
+            if(customerSWDBalance >= 25f)
             {
-                customerSWDBalance -= 25;
+                customerSWDBalance -= 25f;
                 deductedAMTS.put(25, deductedAMTS.get(25) + 1);
             }
-            else if(customerSWDBalance > 10)
+            else if(customerSWDBalance >= 10f)
             {
-                customerSWDBalance -= 10;
+                customerSWDBalance -= 10f;
                 deductedAMTS.put(10, deductedAMTS.get(10) + 1);
             }
-            else if(customerSWDBalance > 5)
+            else if(customerSWDBalance >= 5f)
             {
-                customerSWDBalance -= 5;
+                customerSWDBalance -= 5f;
                 deductedAMTS.put(5, deductedAMTS.get(5) + 1);
             }
-            else if(customerSWDBalance > 1)
+            else if(customerSWDBalance >= 1f)
             {
-                customerSWDBalance -= 1;
+                customerSWDBalance -= 1f;
                 deductedAMTS.put(1, deductedAMTS.get(1) + 1);
             }
-            else if(customerSWDBalance > .20)
+            else if(customerSWDBalance >= .20f)
             {
-                customerSWDBalance -= .20;
+                customerSWDBalance -= .20f;
                 deductedAMTS.put(20, deductedAMTS.get(20) + 1);
             }
-            else if(customerSWDBalance > .08)
+            else if(customerSWDBalance >= .08f)
             {
-                customerSWDBalance -= .08;
+                customerSWDBalance -= .08f;
                 deductedAMTS.put(8, deductedAMTS.get(8) + 1);
             }
-            else if(customerSWDBalance > .05)
+            else if(customerSWDBalance >= .05f)
             {
-                customerSWDBalance -= .05;
+                customerSWDBalance -= .05f;
                 deductedAMTS.put(55, deductedAMTS.get(55) + 1);
             }
-            else if(customerSWDBalance > .01)
+            else if(customerSWDBalance >= .01f)
             {
-                customerSWDBalance -= .01;
+                customerSWDBalance -= .01f;
                 deductedAMTS.put(11, deductedAMTS.get(11) + 1);
             }
         }
@@ -86,42 +86,42 @@ public class Customer {
 
         while(customerUSDBalance != 0) //deduction code for each unit of currency
         {
-            if(customerUSDBalance > 20)
+            if(customerUSDBalance >= 20)
             {
                 customerUSDBalance -= 20;
                 returnAMTS.put(20, returnAMTS.get(20) + 1);
             }
-            else if(customerUSDBalance > 10)
+            else if(customerUSDBalance >= 10)
             {
                 customerUSDBalance -= 10;
                 returnAMTS.put(10, returnAMTS.get(10) + 1);
             }
-            else if(customerUSDBalance > 5)
+            else if(customerUSDBalance >= 5)
             {
                 customerUSDBalance -= 5;
                 returnAMTS.put(5, returnAMTS.get(5) + 1);
             }
-            else if(customerUSDBalance > 1)
+            else if(customerUSDBalance >= 1)
             {
                 customerUSDBalance -= 1;
                 returnAMTS.put(1, returnAMTS.get(1) + 1);
             }
-            else if(customerUSDBalance > .25)
+            else if(customerUSDBalance >= .25)
             {
                 customerUSDBalance -= .25;
                 returnAMTS.put(25, returnAMTS.get(25) + 1);
             }
-            else if(customerUSDBalance > .10)
+            else if(customerUSDBalance >= .10)
             {
                 customerUSDBalance -= .10;
                 returnAMTS.put(100, returnAMTS.get(100) + 1);
             }
-            else if(customerUSDBalance > .05)
+            else if(customerUSDBalance >= .05)
             {
                 customerUSDBalance -= .05;
                 returnAMTS.put(55, returnAMTS.get(55) + 1);
             }
-            else if(customerUSDBalance > .01)
+            else if(customerUSDBalance >= .01)
             {
                 customerUSDBalance -= .01;
                 returnAMTS.put(11, returnAMTS.get(11) + 1);
@@ -129,40 +129,43 @@ public class Customer {
         }
         return returnAMTS;
     }
-    public void exchangeSWD(Customer customer, float withdrawAMT){
+    public void exchangeSWD(float withdrawAMT){
 
-        if(!exchangeValid(customer.getBalance(), withdrawAMT)) //if it is NOT valid
+        if(!exchangeValid(balance * rate, withdrawAMT)) //if it is NOT valid
         {
-            System.out.println("Insufficient funds");
+            System.out.println("\nInsufficient funds");
         }else{
-            HashMap<Integer, Integer> deductedAMTS = usdToSWD(customer.getBalance());
+            HashMap<Integer, Integer> deductedAMTS = usdToSWD(balance);
 
-
+            System.out.println("\nEXCHANGING YOUR USD FOR SWD");
             System.out.println("Current exchange rate: USD * " + rate + " = SWD");
 
-            System.out.println("Amount Requested: ");
-            System.out.println("25: " + deductedAMTS.get(25) + " 10: " + deductedAMTS.get(10) + " 5: " + deductedAMTS.get(5)
-                    + " 1: " + deductedAMTS.get(1) + " 20: " + deductedAMTS.get(20) + " 8: " + deductedAMTS.get(8)
-                    + " 5: " + deductedAMTS.get(55) + " 1: " + deductedAMTS.get(11));
+            System.out.println("Amount in SWD Requested: ");
+            System.out.println("25: " + deductedAMTS.get(25) + "\n10: " + deductedAMTS.get(10) + "\n5: " + deductedAMTS.get(5)
+                    + "\n1: " + deductedAMTS.get(1) + "\n20 coins: " + deductedAMTS.get(20) + "\n8 coins: " + deductedAMTS.get(8)
+                    + "\n5 coins: " + deductedAMTS.get(55) + "\n1 coins: " + deductedAMTS.get(11));
             balance -= (withdrawAMT/rate);
-            System.out.println("New balance: " + balance + "USD");
+            System.out.println("New balance: $" + balance + "USD");
         }
 
     } //not static because we need to be able to edit a Customer object's balance
 
-    public void setRate(float newRate)
+    public static void setRate(float newRate)
     {
         rate = newRate;
     }
 
-    public void deleteAccount(Customer customer)
-    {
-        System.out.println("Balance: " + balance);
-        HashMap<Integer, Integer> deductedAMTS = usdUnitConversion(customer.getBalance());
+    public static float getRate(){return rate;}
 
-        System.out.println("Amount Requested: ");
-        System.out.println("20: " + deductedAMTS.get(20) + " 10: " + deductedAMTS.get(10) + " 5: " + deductedAMTS.get(5)
-                + " 1: " + deductedAMTS.get(1) + " Quarters: " + deductedAMTS.get(25) + " Dimes: " + deductedAMTS.get(100)
+    public void deleteAccount()
+    {
+        System.out.println("\nDELETING ACCOUNT");
+        System.out.println("Balance: $" + balance);
+        HashMap<Integer, Integer> deductedAMTS = usdUnitConversion(balance);
+
+        System.out.println("Amount of USD in account: ");
+        System.out.println("$20: " + deductedAMTS.get(20) + " $10: " + deductedAMTS.get(10) + " $5: " + deductedAMTS.get(5)
+                + " $1: " + deductedAMTS.get(1) + " Quarters: " + deductedAMTS.get(25) + " Dimes: " + deductedAMTS.get(100)
                 + " Nickels: " + deductedAMTS.get(55) + " Pennies: " + deductedAMTS.get(11));
 
     }
