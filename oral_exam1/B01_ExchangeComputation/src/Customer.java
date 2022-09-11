@@ -1,3 +1,4 @@
+
 public class Customer {
 
     //float precision is used because double precision will result in an off by one error
@@ -10,4 +11,6 @@ public class Customer {
     {
         return balance;
     }
+
+
 }
