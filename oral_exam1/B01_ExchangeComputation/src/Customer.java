@@ -150,7 +150,7 @@ public class Customer {
     }
     public void exchangeSWD(float withdrawAMT){
 
-        if(!exchangeValid(balance * rate, withdrawAMT)) //if it is NOT valid
+        if(!exchangeValid(balance * rate, withdrawAMT)) //if balance in SWD is NOT valid
         {
             System.out.println("\n" + name + " has insufficient funds");
         }else{
