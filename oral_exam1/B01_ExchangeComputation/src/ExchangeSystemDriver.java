@@ -4,8 +4,8 @@ public class ExchangeSystemDriver {
 
         //Customer creation
         System.out.println("Creating two customers...");
-        Customer marco = new Customer(100f);
-        Customer bart = new Customer(121.75f);
+        Customer marco = new Customer(100f, "Marco");
+        Customer bart = new Customer(121.75f, "Bart");
 
         System.out.println("The rate is: " + Customer.getRate());
 
@@ -14,7 +14,7 @@ public class ExchangeSystemDriver {
         Customer.setRate(2);
 
         //Add customer AFTER rate change
-        Customer walter = new Customer(245.63f);
+        Customer walter = new Customer(245.63f, "Walter");
         System.out.println("Creating 1 more customer...");
 
         System.out.println("The rate is: " + Customer.getRate());
@@ -23,6 +23,8 @@ public class ExchangeSystemDriver {
 
         Customer.setRate(3);
         bart.exchangeSWD(56.7f);
+        marco.exchangeSWD(200f);
+        marco.exchangeSWD(200f);
 
         marco.deleteAccount();
 
