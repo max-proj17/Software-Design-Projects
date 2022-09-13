@@ -33,56 +33,63 @@ public class Customer {
         deductedAMTS.put(20, 0); deductedAMTS.put(8, 0); deductedAMTS.put(55, 0); deductedAMTS.put(11, 0);
 
 
-        while(customerSWDBalance != 0) //deduction code for each unit of currency
+        customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
+        while(customerSWDBalance > 0) //deduction code for each unit of currency
         {
-            System.out.println(customerSWDBalance);
-            if(customerSWDBalance >= 25)
+            //System.out.println(customerUSDBalance);
+            if(customerSWDBalance >= 25f)
             {
-                customerSWDBalance -= 25;
-                customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
+                customerSWDBalance -= 25f;
+
                 deductedAMTS.put(25, deductedAMTS.get(25) + 1);
             }
-            else if(customerSWDBalance >= 10)
+            else if(customerSWDBalance >= 10f)
             {
-                customerSWDBalance -= 10;
-                customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
+                customerSWDBalance -= 10f;
+
                 deductedAMTS.put(10, deductedAMTS.get(10) + 1);
             }
-            else if(customerSWDBalance >= 5)
+            else if(customerSWDBalance >= 5f)
             {
-                customerSWDBalance -= 5;
-                customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
+                customerSWDBalance -= 5f;
+
                 deductedAMTS.put(5, deductedAMTS.get(5) + 1);
             }
-            else if(customerSWDBalance >= 1)
+            else if(customerSWDBalance >= 1f)
             {
-                customerSWDBalance -= 1;
-                customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
+                customerSWDBalance -= 1f;
+
                 deductedAMTS.put(1, deductedAMTS.get(1) + 1);
             }
-            else if(customerSWDBalance >= .20)
+            else if(customerSWDBalance >= .20f)
             {
-                customerSWDBalance -= .20;
-                customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
+                customerSWDBalance -= .20f;
+
                 deductedAMTS.put(20, deductedAMTS.get(20) + 1);
             }
-            else if(customerSWDBalance >= .08)
+            else if(customerSWDBalance >= .08f)
             {
-                customerSWDBalance -= .08;
-                customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
+                customerSWDBalance -= .08f;
+
                 deductedAMTS.put(8, deductedAMTS.get(8) + 1);
             }
-            else if(customerSWDBalance >= .05)
+            else if(customerSWDBalance >= .05f)
             {
-                customerSWDBalance -= .05;
-                customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
+                customerSWDBalance -= .05f;
+
                 deductedAMTS.put(55, deductedAMTS.get(55) + 1);
             }
-            else if(customerSWDBalance >= .01)
+            else if(customerSWDBalance >= .01f)
             {
-                customerSWDBalance -= .01;
-                customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
+                customerSWDBalance -= .01f;
+
                 deductedAMTS.put(11, deductedAMTS.get(11) + 1);
+            }else{
+                if(customerSWDBalance >= .005) {
+
+                    deductedAMTS.put(11, deductedAMTS.get(11) + 1);
+                }
+                customerSWDBalance = 0;
             }
         }
         return deductedAMTS;
@@ -96,56 +103,63 @@ public class Customer {
         returnAMTS.put(20, 0); returnAMTS.put(10, 0); returnAMTS.put(5, 0); returnAMTS.put(1, 0);
         returnAMTS.put(25, 0); returnAMTS.put(100, 0); returnAMTS.put(55, 0); returnAMTS.put(11, 0);
 
+        customerUSDBalance = Math.round(customerUSDBalance * 100.0f)/100.0f;
         while(customerUSDBalance > 0) //deduction code for each unit of currency
         {
-            System.out.println(customerUSDBalance);
-            if(customerUSDBalance >= 20)
+            //System.out.println(customerUSDBalance);
+            if(customerUSDBalance >= 20f)
             {
-                customerUSDBalance -= 20;
-                customerUSDBalance = Math.round(customerUSDBalance * 100.0f)/100.0f;
+                customerUSDBalance -= 20f;
+
                 returnAMTS.put(20, returnAMTS.get(20) + 1);
             }
-            else if(customerUSDBalance >= 10)
+            else if(customerUSDBalance >= 10f)
             {
-                customerUSDBalance -= 10;
-                customerUSDBalance = Math.round(customerUSDBalance * 100.0f)/100.0f;
+                customerUSDBalance -= 10f;
+
                 returnAMTS.put(10, returnAMTS.get(10) + 1);
             }
-            else if(customerUSDBalance >= 5)
+            else if(customerUSDBalance >= 5f)
             {
-                customerUSDBalance -= 5;
-                customerUSDBalance = Math.round(customerUSDBalance * 100.0f)/100.0f;
+                customerUSDBalance -= 5f;
+
                 returnAMTS.put(5, returnAMTS.get(5) + 1);
             }
-            else if(customerUSDBalance >= 1)
+            else if(customerUSDBalance >= 1f)
             {
-                customerUSDBalance -= 1;
-                customerUSDBalance = Math.round(customerUSDBalance * 100.0f)/100.0f;
+                customerUSDBalance -= 1f;
+
                 returnAMTS.put(1, returnAMTS.get(1) + 1);
             }
-            else if(customerUSDBalance >= .25)
+            else if(customerUSDBalance >= .25f)
             {
-                customerUSDBalance -= .25;
-                customerUSDBalance = Math.round(customerUSDBalance * 100.0f)/100.0f;
+                customerUSDBalance -= .25f;
+
                 returnAMTS.put(25, returnAMTS.get(25) + 1);
             }
-            else if(customerUSDBalance >= .10)
+            else if(customerUSDBalance >= .10f)
             {
-                customerUSDBalance -= .10;
-                customerUSDBalance = Math.round(customerUSDBalance * 100.0f)/100.0f;
+                customerUSDBalance -= .10f;
+
                 returnAMTS.put(100, returnAMTS.get(100) + 1);
             }
-            else if(customerUSDBalance >= .05)
+            else if(customerUSDBalance >= .05f)
             {
-                customerUSDBalance -= .05;
-                customerUSDBalance = Math.round(customerUSDBalance * 100.0f)/100.0f;
+                customerUSDBalance -= .05f;
+
                 returnAMTS.put(55, returnAMTS.get(55) + 1);
             }
-            else if(customerUSDBalance >= .01)
+            else if(customerUSDBalance >= .01f)
             {
-                customerUSDBalance -= .01;
-                customerUSDBalance = Math.round(customerUSDBalance * 100.0f)/100.0f;
+                customerUSDBalance -= .01f;
+
                 returnAMTS.put(11, returnAMTS.get(11) + 1);
+            }else{
+                if(customerUSDBalance >= .005) {
+
+                    returnAMTS.put(11, returnAMTS.get(11) + 1);
+                }
+                customerUSDBalance = 0;
             }
         }
         return returnAMTS;

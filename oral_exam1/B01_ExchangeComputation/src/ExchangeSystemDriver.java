@@ -22,7 +22,7 @@ public class ExchangeSystemDriver {
         marco.exchangeSWD(20f);
 
         Customer.setRate(3);
-        //bart.exchangeSWD(56.7f);
+        bart.exchangeSWD(56.7f);
         marco.exchangeSWD(200f);
         marco.exchangeSWD(200f); //not enough balance
 
