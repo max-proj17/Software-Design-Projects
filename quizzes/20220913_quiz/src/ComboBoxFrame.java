@@ -15,7 +15,7 @@ public class ComboBoxFrame extends JFrame
    private final JLabel label; // displays selected icon
 
    private static final String[] names = 
-      {"bug1.gif", "bug2.gif",  "travelbug.gif", "buganim.gif"};
+      {"bug1.GIF", "bug2.GIF",  "travelbug.GIF", "buganim.GIF"};
    private final Icon[] icons = { 
       new ImageIcon(getClass().getResource(names[0])),
       new ImageIcon(getClass().getResource(names[1])), 
