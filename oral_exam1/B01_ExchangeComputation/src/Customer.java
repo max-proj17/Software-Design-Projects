@@ -2,6 +2,8 @@ import java.util.HashMap;
 
 public class Customer {
 
+
+
     //float precision is used because double precision will result in an off by one error
     private float balance;
     private static float rate = 1;
@@ -11,6 +13,9 @@ public class Customer {
     Customer(float startBalance, String name){
         this.name = name;
         balance = startBalance;
+    }
+    public float getBalance() {
+        return balance;
     }
     private boolean exchangeValid(float customerSWDBalance, float withdrawAMT)
     {
