@@ -28,8 +28,6 @@ public class ExchangeSystemDriver {
 
         marco.deleteAccount();
 
-        return;
-
     }
 
 

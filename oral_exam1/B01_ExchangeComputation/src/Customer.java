@@ -12,10 +12,6 @@ public class Customer {
         this.name = name;
         balance = startBalance;
     }
-    public float getBalance() //not static because all Customer's have a different balance
-    {
-        return balance;
-    }
     private boolean exchangeValid(float customerSWDBalance, float withdrawAMT)
     {
         if(customerSWDBalance - withdrawAMT <= 0){ //This subtracts the CONVERTED customer balance from the withdrawal request
@@ -36,7 +32,6 @@ public class Customer {
         customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
         while(customerSWDBalance > 0) //deduction code for each unit of currency
         {
-            //System.out.println(customerUSDBalance);
             if(customerSWDBalance >= 25f)
             {
                 customerSWDBalance -= 25f;
@@ -164,13 +159,14 @@ public class Customer {
         }
         return returnAMTS;
     }
-    public void exchangeSWD(float withdrawAMT){
+    public HashMap<Integer, Integer> exchangeSWD(float withdrawAMT){
 
+        HashMap<Integer, Integer> deductedAMTS = displaySWD(withdrawAMT); //This statement is here to test valid & invalid exchanges
         if(!exchangeValid(balance * rate, withdrawAMT)) //if balance in SWD is NOT valid
         {
             System.out.println("\n" + name + " has insufficient funds");
         }else{
-            HashMap<Integer, Integer> deductedAMTS = displaySWD(withdrawAMT);
+
             System.out.println("\n" + name + "'s Transaction");
             System.out.println("Balance: " + balance + " USD");
             System.out.println("EXCHANGING YOUR USD FOR SWD. Amount Requested: " + withdrawAMT + " SWD");
@@ -183,7 +179,9 @@ public class Customer {
             balance -= (withdrawAMT/rate);
             balance = Math.round(balance * 100.0f)/100.0f;
             System.out.println("New balance: $" + balance + " USD");
+
         }
+        return deductedAMTS;
 
     } //not static because we need to be able to edit a Customer object's balance
 
@@ -194,7 +192,7 @@ public class Customer {
 
     public static float getRate(){return rate;}
 
-    public void deleteAccount()
+    public HashMap<Integer, Integer> deleteAccount()
     {
         System.out.println("\nDELETING " + name + "'s ACCOUNT");
         System.out.println("Balance: $" + balance);
@@ -204,6 +202,8 @@ public class Customer {
         System.out.println("$20: " + deductedAMTS.get(20) + " $10: " + deductedAMTS.get(10) + " $5: " + deductedAMTS.get(5)
                 + " $1: " + deductedAMTS.get(1) + " Quarters: " + deductedAMTS.get(25) + " Dimes: " + deductedAMTS.get(100)
                 + " Nickels: " + deductedAMTS.get(55) + " Pennies: " + deductedAMTS.get(11));
+
+        return deductedAMTS;
 
     }
 
