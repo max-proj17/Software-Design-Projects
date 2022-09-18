@@ -1,35 +1,58 @@
 import java.util.HashMap;
 
+/**
+ * This class has a two-argument constructor, 3 private methods and 7 public methods.
+ *
+ * @author Max Finch
+ */
 public class Customer {
 
-
-
-    //float precision is used because double precision will result in an off by one error
+    /**
+     * The amount of money a Customer has in USD
+     * A float is used because double precision is not needed.
+     * The max decimal we need to represent is .99 for 99 cents
+     */
     private float balance;
+    /**
+     * The exchange rate for all customers.
+     * This variable is static because all Customers should share 1 rate variable
+     *
+     */
     private static float rate = 1;
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * Keeps the name of the Customer
+     * Main use is to label transactions, account closings and the toString method.
+     */
     private String name;
-
+    /**
+     * Two-argument constructor
+     * @param startBalance Amount of starting money in USD
+     * @param name Name associated with "Account"
+     */
     Customer(float startBalance, String name){
-        if(startBalance < 0 || startBalance <= Integer.MAX_VALUE)
+        if(startBalance < 0 || startBalance >= Integer.MAX_VALUE)
         {
             throw new IllegalArgumentException("Starting balance must be greater than 0 and less than 2147483647");
         }
         this.name = name;
         balance = startBalance;
     }
-    //Copy constructor
+    /**
+     * One-argument Copy Constructor
+     * @param customer Amount of starting money in USD
+     */
     public Customer(Customer customer) {
         this.balance = customer.balance;
         this.name = customer.name;
     }
-    public float getBalance() {
-        return balance;
-    }
+    /**
+     * Determines whether a transaction is valid by subtracting a customers
+     * SWD balance and subtracting it by the requested withdrawal amount.
+     * Returns a boolean indicating the validity of the transaction.
+     * @param customerSWDBalance The value of the customer's balance in SWD (USD * Rate = SWD)
+     * @param withdrawAMT The amount requested to withdraw in SWD
+     * @return true: transaction valid false: transaction invalid
+     */
     private boolean exchangeValid(float customerSWDBalance, float withdrawAMT)
     {
         if(customerSWDBalance - withdrawAMT <= 0){ //This subtracts the CONVERTED customer balance from the withdrawal request
@@ -38,7 +61,13 @@ public class Customer {
             return true;
         }
     }
-    private static HashMap<Integer, Integer> displaySWD(float customerSWDBalance){
+    /**
+     * Takes in the requested withdrawal amount and fills a HashMap with the most minimal
+     * divisions of SWD currency to give back to the Customer. The function returns this HashMap.
+     * @param swdWithdrawalAMT The amount requested in SWD
+     * @return a HashMap of the individual units of SWD currency that must be given back to the Customer
+     */
+    private static HashMap<Integer, Integer> displaySWD(float swdWithdrawalAMT){
 
         HashMap<Integer, Integer> deductedAMTS  = new HashMap<Integer, Integer>(); //contains return amount in currency units
 
@@ -47,67 +76,73 @@ public class Customer {
         deductedAMTS.put(20, 0); deductedAMTS.put(8, 0); deductedAMTS.put(55, 0); deductedAMTS.put(11, 0);
 
 
-        customerSWDBalance = Math.round(customerSWDBalance * 100.0f)/100.0f;
-        while(customerSWDBalance > 0) //deduction code for each unit of currency
+        swdWithdrawalAMT = Math.round(swdWithdrawalAMT * 100.0f)/100.0f;
+        while(swdWithdrawalAMT > 0) //deduction code for each unit of currency
         {
-            if(customerSWDBalance >= 25f)
+            if(swdWithdrawalAMT >= 25f)
             {
-                customerSWDBalance -= 25f;
+                swdWithdrawalAMT -= 25f;
 
                 deductedAMTS.put(25, deductedAMTS.get(25) + 1);
             }
-            else if(customerSWDBalance >= 10f)
+            else if(swdWithdrawalAMT >= 10f)
             {
-                customerSWDBalance -= 10f;
+                swdWithdrawalAMT -= 10f;
 
                 deductedAMTS.put(10, deductedAMTS.get(10) + 1);
             }
-            else if(customerSWDBalance >= 5f)
+            else if(swdWithdrawalAMT >= 5f)
             {
-                customerSWDBalance -= 5f;
+                swdWithdrawalAMT -= 5f;
 
                 deductedAMTS.put(5, deductedAMTS.get(5) + 1);
             }
-            else if(customerSWDBalance >= 1f)
+            else if(swdWithdrawalAMT >= 1f)
             {
-                customerSWDBalance -= 1f;
+                swdWithdrawalAMT -= 1f;
 
                 deductedAMTS.put(1, deductedAMTS.get(1) + 1);
             }
-            else if(customerSWDBalance >= .20f)
+            else if(swdWithdrawalAMT >= .20f)
             {
-                customerSWDBalance -= .20f;
+                swdWithdrawalAMT -= .20f;
 
                 deductedAMTS.put(20, deductedAMTS.get(20) + 1);
             }
-            else if(customerSWDBalance >= .08f)
+            else if(swdWithdrawalAMT >= .08f)
             {
-                customerSWDBalance -= .08f;
+                swdWithdrawalAMT -= .08f;
 
                 deductedAMTS.put(8, deductedAMTS.get(8) + 1);
             }
-            else if(customerSWDBalance >= .05f)
+            else if(swdWithdrawalAMT >= .05f)
             {
-                customerSWDBalance -= .05f;
+                swdWithdrawalAMT -= .05f;
 
                 deductedAMTS.put(55, deductedAMTS.get(55) + 1);
             }
-            else if(customerSWDBalance >= .01f)
+            else if(swdWithdrawalAMT >= .01f)
             {
-                customerSWDBalance -= .01f;
+                swdWithdrawalAMT -= .01f;
 
                 deductedAMTS.put(11, deductedAMTS.get(11) + 1);
             }else{
-                if(customerSWDBalance >= .005) {
+                if(swdWithdrawalAMT >= .005) {
 
                     deductedAMTS.put(11, deductedAMTS.get(11) + 1);
                 }
-                customerSWDBalance = 0;
+                swdWithdrawalAMT = 0;
             }
         }
         return deductedAMTS;
     }
-
+    /**
+     * Takes in the Customer's USD balance and fills a HashMap with the most minimal
+     * divisions of USD currency. The function returns this HashMap.
+     * @param customerUSDBalance The value of the customer's balance member variable
+     * @return a HashMap of the individual units of USD currency that will be displayed in
+     * deleteAccount()
+     */
     private static HashMap<Integer, Integer> displayUSD(float customerUSDBalance){
 
         HashMap<Integer, Integer> returnAMTS  = new HashMap<Integer, Integer>(); //contains return amount in currency units
@@ -177,6 +212,14 @@ public class Customer {
         }
         return returnAMTS;
     }
+    /**
+     * Takes in the requested withdrawal amount and fills a HashMap with the most minimal
+     * divisions of SWD currency to give back to the Customer. Displays to the console
+     * the currency division breakdown. The function returns this HashMap.
+     * @param withdrawAMT The amount requested in SWD
+     * @return a HashMap of the individual units of SWD currency that must be given back to the Customer.
+     * The return value has no function in the driver but is used in a JUNIT test named exchangesCorrectSWD()
+     */
     public HashMap<Integer, Integer> exchangeSWD(float withdrawAMT){
 
         HashMap<Integer, Integer> deductedAMTS = displaySWD(withdrawAMT); //This statement is here to test valid & invalid exchanges
@@ -202,13 +245,43 @@ public class Customer {
         return deductedAMTS;
 
     } //not static because we need to be able to edit a Customer object's balance
-
+    /**
+     * Returns nothing. Sets new rate for ALL customers. This function belongs
+     * to the definition of the Customer class.
+     * @param newRate rate to replace the old rate
+     */
     public static void setRate(float newRate)
     {
         rate = newRate;
     }
-
+    /**
+     * Returns the current rate
+     *
+     * @return rate as a float value
+     */
     public static float getRate(){return rate;}
+    /**
+     * Returns nothing. Sets name for the customer the function was called on.
+     * @param name rate to replace the old rate
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    /**
+     * Returns the Customer's current balance.
+     *
+     * @return balance in USD as a float value.
+     */
+    public float getBalance() {
+        return balance;
+    }
+    /**
+     * Deletes Customer that the function was called on. "Deletion" for this program is simply returning the
+     * amount of USD left in the account. Displays to the console the currency division breakdown.
+     * The function returns this HashMap.
+     * @return a HashMap of the individual units of USD currency that must be given back to the Customer.
+     * The return value has no function in the driver but is used in a JUNIT test named deletesAccountReturnsCorrectUSDBalance()
+     */
 
     public HashMap<Integer, Integer> deleteAccount()
     {
@@ -224,9 +297,11 @@ public class Customer {
         return deductedAMTS;
 
     }
-
+    /**
+     * Returns the Customer's "credentials" which include the name and balance
+     * @return String representing the Customer Object
+     */
     public String toString(){
-
 
         return "Name: " + name + "\nBalance: " + balance;
 

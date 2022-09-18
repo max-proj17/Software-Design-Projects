@@ -1,5 +1,17 @@
 // Good amount of commits - Ben
+/**
+ * Main driver class that tests Customer.java
+ *
+ * @author Max Finch
+ */
 public class ExchangeSystemDriver {
+    /**
+     * This method will automatically be called when ExchangeSystemDriver
+     * is run.
+     *
+     * @param args Command line arguments.
+     */
+    @SuppressWarnings("unused")
 
     public static void main (String [] args){
 
