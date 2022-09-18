@@ -9,6 +9,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Testing {
 
+    @ParameterizedTest(name="run #{index} with [{arguments}]")
+    @CsvSource({"-1.7f,\"bob\"", "-30.44f,frank,", "-2.7f,yong", "-.00002f,man", "2147483647,philip","-90.7f,Bart"})
+    void invalidConstructor2Arguments(float balance, String name){
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Customer(balance, name));
+    }
+    @Test
+    void copyConstructor(){
+        //deep copy not shallow
+        Customer original = new Customer(100f,"Mark");
+        Customer copy = new Customer(original);
+        original.setName("Mike");
+
+        assertEquals(copy.toString(),"Name: Mark\nBalance: 100.0");
+
+    }
     @Test
     void setsAndGetsCorrectRate()
     {

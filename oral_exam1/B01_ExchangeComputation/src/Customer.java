@@ -8,11 +8,24 @@ public class Customer {
     private float balance;
     private static float rate = 1;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     private String name;
 
     Customer(float startBalance, String name){
+        if(startBalance < 0 || startBalance <= Integer.MAX_VALUE)
+        {
+            throw new IllegalArgumentException("Starting balance must be greater than 0 and less than 2147483647");
+        }
         this.name = name;
         balance = startBalance;
+    }
+    //Copy constructor
+    public Customer(Customer customer) {
+        this.balance = customer.balance;
+        this.name = customer.name;
     }
     public float getBalance() {
         return balance;
@@ -209,6 +222,13 @@ public class Customer {
                 + " Nickels: " + deductedAMTS.get(55) + " Pennies: " + deductedAMTS.get(11));
 
         return deductedAMTS;
+
+    }
+
+    public String toString(){
+
+
+        return "Name: " + name + "\nBalance: " + balance;
 
     }
 
