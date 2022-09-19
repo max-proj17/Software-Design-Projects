@@ -36,6 +36,8 @@ public class Customer {
         }
         this.name = name;
         balance = startBalance;
+        String strDouble = String. format("%. 2f", balance);
+        System.out.println("Welcome " + this.name + " your balance is " + strDouble + " USD");
     }
     /**
      * One-argument Copy Constructor
@@ -252,6 +254,8 @@ public class Customer {
      */
     public static void setRate(float newRate)
     {
+
+        System.out.println("Changing rate for all Customers...");
         rate = newRate;
     }
     /**
