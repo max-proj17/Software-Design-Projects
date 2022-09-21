@@ -19,11 +19,17 @@ public class Customer {
      *
      */
     private static float rate = 1;
+
+
     /**
      * Keeps the name of the Customer
      * Main use is to label transactions, account closings and the toString method.
      */
     private String name;
+    /**
+     * No argument constructor
+     */
+    Customer(){};
     /**
      * Two-argument constructor
      * @param startBalance Amount of starting money in USD
@@ -265,6 +271,14 @@ public class Customer {
      */
     public static float getRate(){return rate;}
     /**
+     * Returns the customer's name
+     *
+     * @return name as a String
+     */
+    public String getName() {
+        return name;
+    }
+    /**
      * Returns nothing. Sets name for the customer the function was called on.
      * @param name rate to replace the old rate
      */
@@ -307,7 +321,7 @@ public class Customer {
      */
     public String toString(){
 
-        return "Name: " + name + "\nBalance: " + balance;
+        return "Name: " + name + "\n| Balance: " + balance;
 
     }
 
