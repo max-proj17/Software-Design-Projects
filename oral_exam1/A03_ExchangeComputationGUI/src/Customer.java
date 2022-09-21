@@ -320,8 +320,9 @@ public class Customer {
      * @return String representing the Customer Object
      */
     public String toString(){
-
-        return "Name: " + name + "\n| Balance: " + balance;
+        String usd = String.format(".2%f", balance);
+        String swd= String.format(".2%f", (balance * rate));
+        return "Name: " + name + "\n| BalanceUSD: " + balance + "\n| BalanceSWD: " + (balance * rate);
 
     }
 
