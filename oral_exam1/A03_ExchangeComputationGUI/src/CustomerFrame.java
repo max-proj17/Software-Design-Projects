@@ -40,21 +40,26 @@ public class CustomerFrame extends JFrame {
     public CustomerFrame()
     {
        super("Customer Frame"); //inherited JFrame constructor
-       setLayout(new FlowLayout()); // set frame layout
+       setLayout(new GridLayout(2,2)); // set frame layout
 
        //rate panel setup
        rateField = new JTextField();
        ratePanel = new JPanel();
        rateLabel = new JLabel(("The rate is: " + Customer.getRate()));
        ratePanel.setLayout(new BoxLayout(ratePanel, BoxLayout.Y_AXIS));
+       rateField.setToolTipText("Enter new rate here");
+       rateField.setFont(new Font("Large", Font.PLAIN, 50));
        ratePanel.add(rateField);
        ratePanel.add(rateLabel);
 
        //Customer combobox setup
+       customerInfoLabel = new JLabel(customers[0].superString()); //show first Customer initially
        customerInfoPanel = new JPanel();
        customerInfoPanel.setLayout(new BoxLayout(customerInfoPanel, BoxLayout.Y_AXIS));
        customerInfoJComboBox = new JComboBox<GUICustomer>(customers);
+       customerInfoJComboBox.setFont(new Font("Large", Font.PLAIN, 50));
        customerInfoJComboBox.setMaximumRowCount(3);
+
        customerInfoPanel.add(customerInfoJComboBox);
        customerInfoJComboBox.addItemListener(
                new ItemListener() // anonymous inner class
@@ -99,8 +104,7 @@ public class CustomerFrame extends JFrame {
        //display to window
        add(customerInfoPanel);
        add(ratePanel);
-       customerInfoLabel = new JLabel(customers[0].superString()); //show first Customer initially
-       customerInfoLabel.setToolTipText("Combobox Test successful");
+
        add(customerInfoLabel);
 
     }

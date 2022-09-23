@@ -5,7 +5,7 @@ public class CustomerFrameDriver {
     {
         CustomerFrame customerFrame = new CustomerFrame();
         customerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        customerFrame.setSize(260, 180);
+        customerFrame.setSize(520, 260);
         customerFrame.setVisible(true);
     }
 }

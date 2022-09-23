@@ -322,7 +322,7 @@ public class Customer {
     public String toString(){
         String usd = String.format(".2%f", balance);
         String swd= String.format(".2%f", (balance * rate));
-        return "Name: " + name + "\n| BalanceUSD: " + balance + "\n| BalanceSWD: " + (balance * rate);
+        return "<html>Name: " + name + "<br>BalanceUSD: " + balance + "<br>BalanceSWD: " + (balance * rate) + "</html>";
 
     }
 
