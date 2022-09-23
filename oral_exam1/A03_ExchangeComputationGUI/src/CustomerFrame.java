@@ -19,6 +19,7 @@ public class CustomerFrame extends JFrame {
     private final JTextField rateField; //test field to change the rate
     private final JPanel ratePanel;
     private final JLabel rateLabel;
+    private final JButton deleteAccount;
     private final Customer[] customers = {
             new Customer(500f, "Marco"),
             new Customer(20.75f, "Bella"),
@@ -40,6 +41,7 @@ public class CustomerFrame extends JFrame {
        topPanel = new JPanel();
        bottomPanel = new JPanel();
 
+
        //rate panel setup
        rateField = new JTextField();
        ratePanel = new JPanel();
@@ -50,6 +52,10 @@ public class CustomerFrame extends JFrame {
        rateField.setFont(new Font("Large", Font.PLAIN, 50));
        ratePanel.add(rateField);
        ratePanel.add(rateLabel);
+
+       //delete account button setup
+       deleteAccount = new JButton("Delete Account");
+
 
        //Exchange Window setup
        exchangePanel = new JPanel();
@@ -65,13 +71,13 @@ public class CustomerFrame extends JFrame {
         //Customer combobox setup
        customerInfoLabel = new JLabel(customers[0].displayAccount()); //show first Customer initially
        customerInfoPanel = new JPanel();
-       customerInfoPanel.setLayout(new BoxLayout(customerInfoPanel, BoxLayout.Y_AXIS));
+       customerInfoPanel.setLayout(new BoxLayout(customerInfoPanel, BoxLayout.X_AXIS));
        customerInfoJComboBox = new JComboBox<Customer>(customers);
        customerInfoJComboBox.setFont(new Font("Large", Font.PLAIN, 50));
        customerInfoJComboBox.setMaximumRowCount(3);
-
-       customerInfoPanel.add(customerInfoLabel);
        customerInfoPanel.add(customerInfoJComboBox);
+
+
        customerInfoJComboBox.addItemListener(
                new ItemListener() // anonymous inner class
                {
@@ -102,7 +108,7 @@ public class CustomerFrame extends JFrame {
                                }else {
                                    Customer.setRate(num);
                                    rateLabel.setText(("The rate is: " + Customer.getRate()));
-                                   customerInfoLabel.setText(customers[0].displayAccount());
+                                   customerInfoLabel.setText(customers[comboBoxGlobalIndex].displayAccount());
                                    string = String.format("The new rate is: %s", actionEvent.getActionCommand());
                                }
                            }catch (Exception e)
@@ -128,7 +134,7 @@ public class CustomerFrame extends JFrame {
                        }else {
 
                            string = customers[comboBoxGlobalIndex].exchangeSWD(num);
-                           customerInfoLabel.setText(customers[0].displayAccount());
+                           customerInfoLabel.setText(customers[comboBoxGlobalIndex].displayAccount());
 
                        }
                    }catch (Exception e)
@@ -136,16 +142,29 @@ public class CustomerFrame extends JFrame {
                        string = "A number is required";
                    }
                }
-               System.out.println("value of string is: " + string);
                JOptionPane.showMessageDialog(null, string);
            }
        });
 
+       deleteAccount.addActionListener(
+               new ActionListener() {
+                   @Override
+                   public void actionPerformed(ActionEvent actionEvent) {
+                       String string = customers[comboBoxGlobalIndex].deleteAccount();
+                       JOptionPane.showMessageDialog(null, string);
+                   }
+               }
+       );
+
        topPanel.add(customerInfoPanel);
        topPanel.add(Box.createRigidArea(new Dimension(10,0)));
+       topPanel.add(customerInfoLabel);
+       topPanel.add(Box.createRigidArea(new Dimension(10,0)));
        topPanel.add(ratePanel);
+
        bottomPanel.add(exchangePanel);
        bottomPanel.add(Box.createRigidArea(new Dimension(10,0)));
+       bottomPanel.add(deleteAccount);
 
        //display to window
        add(topPanel);

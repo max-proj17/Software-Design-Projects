@@ -232,13 +232,14 @@ public class Customer {
 
         String returnString = "";
         HashMap<Integer, Integer> deductedAMTS = displaySWD(withdrawAMT); //This statement is here to test valid & invalid exchanges
+        String usd = String.format("%.2f", balance);
         if(!exchangeValid(balance * rate, withdrawAMT)) //if balance in SWD is NOT valid
         {
             returnString = name + " has insufficient funds";
         }else{
 
             returnString = "<html>" + name + "'s Transaction";
-            returnString += "<br>Balance: " + balance + " USD";
+            returnString += "<br>Balance: " + usd + " USD";
             returnString +="<br>EXCHANGING YOUR USD FOR SWD. Amount Requested: " + withdrawAMT + " SWD";
             returnString +="<br>Current exchange rate: USD * " + rate + " = SWD";
 
@@ -248,7 +249,8 @@ public class Customer {
                     + "<br>5 coins: " + deductedAMTS.get(55) + "<br>1 coins: " + deductedAMTS.get(11);
             balance -= (withdrawAMT/rate);
             balance = Math.round(balance * 100.0f)/100.0f;
-            returnString +="<br>New balance: $" + balance + " USD</html>";
+
+            returnString +="<br>New balance: $" + usd + " USD</html>";
 
         }
         return returnString;
@@ -302,18 +304,20 @@ public class Customer {
      * The return value has no function in the driver but is used in a JUNIT test named deletesAccountReturnsCorrectUSDBalance()
      */
 
-    public HashMap<Integer, Integer> deleteAccount()
+    public String deleteAccount()
     {
-        System.out.println("\nDELETING " + name + "'s ACCOUNT");
-        System.out.println("Balance: $" + balance);
+        String returnString = "";
+        returnString = "<html>DELETING " + name + "'s ACCOUNT";
+        String usd = String.format("%.2f", balance);
+        returnString+="<br>Balance: $" + usd;
         HashMap<Integer, Integer> deductedAMTS = displayUSD(balance);
 
-        System.out.println("Amount of USD in account: ");
-        System.out.println("$20: " + deductedAMTS.get(20) + " $10: " + deductedAMTS.get(10) + " $5: " + deductedAMTS.get(5)
-                + " $1: " + deductedAMTS.get(1) + " Quarters: " + deductedAMTS.get(25) + " Dimes: " + deductedAMTS.get(100)
-                + " Nickels: " + deductedAMTS.get(55) + " Pennies: " + deductedAMTS.get(11));
+        returnString+="<br>Amount of USD in account: ";
+        returnString+= "<br>$20: " + deductedAMTS.get(20) + "<br>$10: " + deductedAMTS.get(10) + "<br>$5: " + deductedAMTS.get(5)
+                + "<br>$1: " + deductedAMTS.get(1) + "<br>Quarters: " + deductedAMTS.get(25) + " <br>Dimes: " + deductedAMTS.get(100)
+                + "<br>Nickels: " + deductedAMTS.get(55) + "<br>Pennies: " + deductedAMTS.get(11) + "</html>";
 
-        return deductedAMTS;
+        return returnString;
 
     }
     /**
@@ -326,9 +330,9 @@ public class Customer {
     }
     public String displayAccount()
     {
-        String usd = String.format(".2%f", balance);
-        String swd= String.format(".2%f", (balance * rate));
-        return "<html>Name: " + name + "<br>BalanceUSD: " + balance + "<br>BalanceSWD: " + (balance * rate) + "</html>";
+        String usd = String.format("%.2f", balance);
+        String swd= String.format("%.2f", (balance * rate));
+        return "<html>Name: " + name + "<br>BalanceUSD: " + usd + "<br>BalanceSWD: " + swd + "</html>";
     }
 
 
