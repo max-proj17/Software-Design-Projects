@@ -228,29 +228,30 @@ public class Customer {
      * @return a HashMap of the individual units of SWD currency that must be given back to the Customer.
      * The return value has no function in the driver but is used in a JUNIT test named exchangesCorrectSWD()
      */
-    public HashMap<Integer, Integer> exchangeSWD(float withdrawAMT){
+    public String exchangeSWD(float withdrawAMT){
 
+        String returnString = "";
         HashMap<Integer, Integer> deductedAMTS = displaySWD(withdrawAMT); //This statement is here to test valid & invalid exchanges
         if(!exchangeValid(balance * rate, withdrawAMT)) //if balance in SWD is NOT valid
         {
-            System.out.println("\n" + name + " has insufficient funds");
+            returnString = name + " has insufficient funds";
         }else{
 
-            System.out.println("\n" + name + "'s Transaction");
-            System.out.println("Balance: " + balance + " USD");
-            System.out.println("EXCHANGING YOUR USD FOR SWD. Amount Requested: " + withdrawAMT + " SWD");
-            System.out.println("Current exchange rate: USD * " + rate + " = SWD");
+            returnString = "<html>" + name + "'s Transaction";
+            returnString += "<br>Balance: " + balance + " USD";
+            returnString +="<br>EXCHANGING YOUR USD FOR SWD. Amount Requested: " + withdrawAMT + " SWD";
+            returnString +="<br>Current exchange rate: USD * " + rate + " = SWD";
 
-            System.out.println("Currency Unit Breakdown: ");
-            System.out.println("25: " + deductedAMTS.get(25) + "\n10: " + deductedAMTS.get(10) + "\n5: " + deductedAMTS.get(5)
-                    + "\n1: " + deductedAMTS.get(1) + "\n20 coins: " + deductedAMTS.get(20) + "\n8 coins: " + deductedAMTS.get(8)
-                    + "\n5 coins: " + deductedAMTS.get(55) + "\n1 coins: " + deductedAMTS.get(11));
+            returnString +="<br>Currency Unit Breakdown: ";
+            returnString +="<br>25: " + deductedAMTS.get(25) + "<br>10: " + deductedAMTS.get(10) + "<br>5: " + deductedAMTS.get(5)
+                    + "<br>1: " + deductedAMTS.get(1) + "<br>20 coins: " + deductedAMTS.get(20) + "<br>8 coins: " + deductedAMTS.get(8)
+                    + "<br>5 coins: " + deductedAMTS.get(55) + "<br>1 coins: " + deductedAMTS.get(11);
             balance -= (withdrawAMT/rate);
             balance = Math.round(balance * 100.0f)/100.0f;
-            System.out.println("New balance: $" + balance + " USD");
+            returnString +="<br>New balance: $" + balance + " USD</html>";
 
         }
-        return deductedAMTS;
+        return returnString;
 
     } //not static because we need to be able to edit a Customer object's balance
     /**
@@ -320,10 +321,14 @@ public class Customer {
      * @return String representing the Customer Object
      */
     public String toString(){
+        //Combobox uses the toString of the object to label each selection. Unfortunately this causes redundancy of the toString and getName methods
+        return name;
+    }
+    public String displayAccount()
+    {
         String usd = String.format(".2%f", balance);
         String swd= String.format(".2%f", (balance * rate));
         return "<html>Name: " + name + "<br>BalanceUSD: " + balance + "<br>BalanceSWD: " + (balance * rate) + "</html>";
-
     }
 
 

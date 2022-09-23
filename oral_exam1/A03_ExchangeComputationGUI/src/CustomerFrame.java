@@ -7,59 +7,70 @@ import javax.swing.*;
 import java.awt.event.ItemEvent;
 public class CustomerFrame extends JFrame {
     private final JLabel customerInfoLabel;
-    private final JComboBox<GUICustomer> customerInfoJComboBox;  //JComponent to select which customer to edit
+    private final JComboBox<Customer> customerInfoJComboBox;  //JComponent to select which customer to edit
+    private int comboBoxGlobalIndex;
     private final JPanel customerInfoPanel;
+    private final JPanel topPanel;
+    private final JPanel bottomPanel;
+    private final JPanel exchangePanel;
+    private final JLabel exchangeLabel;
+    private final JTextField exchangeField;
+
     private final JTextField rateField; //test field to change the rate
     private final JPanel ratePanel;
     private final JLabel rateLabel;
-    private final GUICustomer[] customers = {
-            new GUICustomer(500f, "Marco"),
-            new GUICustomer(20.75f, "Bella"),
-            new GUICustomer(2f, "Berlin"),
-            new GUICustomer(1000.49f, "Jonathan"),
-            new GUICustomer(68f, "Tigris"),
-            new GUICustomer(1.49f, "Tukar"),
-            new GUICustomer(1f, "Jubb"),
+    private final Customer[] customers = {
+            new Customer(500f, "Marco"),
+            new Customer(20.75f, "Bella"),
+            new Customer(2f, "Berlin"),
+            new Customer(1000.49f, "Jonathan"),
+            new Customer(68f, "Tigris"),
+            new Customer(1.49f, "Tukar"),
+            new Customer(1f, "Jubb"),
 
     };
-    //only use is to make toString() of a GUICustomer show ONLY THE NAME. super.toString can be used to get the more detailed version
-    private class GUICustomer extends Customer{
-        public GUICustomer(float startBalance, String name){
-            super(startBalance, name);
-        }
-        @Override
-        public String toString()
-        {
-            return this.getName();
-        }
-        public String superString()
-        {
-            return super.toString();
-        }
-    }
+
     public CustomerFrame()
     {
        super("Customer Frame"); //inherited JFrame constructor
-       setLayout(new GridLayout(2,2)); // set frame layout
+       setLayout(new GridLayout(2,1, 20, 10)); // set frame layout
+
+
+       //major sections of the application
+       topPanel = new JPanel();
+       bottomPanel = new JPanel();
 
        //rate panel setup
        rateField = new JTextField();
        ratePanel = new JPanel();
        rateLabel = new JLabel(("The rate is: " + Customer.getRate()));
+       rateLabel.setFont(new Font("Large", Font.PLAIN, 25));
        ratePanel.setLayout(new BoxLayout(ratePanel, BoxLayout.Y_AXIS));
        rateField.setToolTipText("Enter new rate here");
        rateField.setFont(new Font("Large", Font.PLAIN, 50));
        ratePanel.add(rateField);
        ratePanel.add(rateLabel);
 
-       //Customer combobox setup
-       customerInfoLabel = new JLabel(customers[0].superString()); //show first Customer initially
+       //Exchange Window setup
+       exchangePanel = new JPanel();
+       exchangeField = new JTextField();
+       exchangeField.setFont(new Font("Large", Font.PLAIN, 50));
+       exchangeLabel = new JLabel("Exchange SWD");
+       exchangeLabel.setFont(new Font("Large", Font.PLAIN, 25));
+       exchangePanel.setLayout(new BoxLayout(exchangePanel, BoxLayout.Y_AXIS));
+       exchangePanel.add(exchangeField);
+       exchangePanel.add(exchangeLabel);
+
+
+        //Customer combobox setup
+       customerInfoLabel = new JLabel(customers[0].displayAccount()); //show first Customer initially
        customerInfoPanel = new JPanel();
        customerInfoPanel.setLayout(new BoxLayout(customerInfoPanel, BoxLayout.Y_AXIS));
-       customerInfoJComboBox = new JComboBox<GUICustomer>(customers);
+       customerInfoJComboBox = new JComboBox<Customer>(customers);
        customerInfoJComboBox.setFont(new Font("Large", Font.PLAIN, 50));
        customerInfoJComboBox.setMaximumRowCount(3);
 
+       customerInfoPanel.add(customerInfoLabel);
        customerInfoPanel.add(customerInfoJComboBox);
        customerInfoJComboBox.addItemListener(
                new ItemListener() // anonymous inner class
@@ -69,11 +80,13 @@ public class CustomerFrame extends JFrame {
                    {
                        // determine whether item selected
                        if (event.getStateChange() == ItemEvent.SELECTED)
-                           customerInfoLabel.setText(customers[customerInfoJComboBox.getSelectedIndex()].superString()); //This SHOULD display toString of selected person
+                           comboBoxGlobalIndex = customerInfoJComboBox.getSelectedIndex();
+                           customerInfoLabel.setText(customers[customerInfoJComboBox.getSelectedIndex()].displayAccount()); //This SHOULD display toString of selected person
                    }
                }
        );
-       //another anonymous innerclass for an actionListener for TextField.
+
+       //another anonymous innerclass for an actionListener for rateTextField.
        rateField.addActionListener(
                new ActionListener() {
                    @Override
@@ -89,6 +102,7 @@ public class CustomerFrame extends JFrame {
                                }else {
                                    Customer.setRate(num);
                                    rateLabel.setText(("The rate is: " + Customer.getRate()));
+                                   customerInfoLabel.setText(customers[0].displayAccount());
                                    string = String.format("The new rate is: %s", actionEvent.getActionCommand());
                                }
                            }catch (Exception e)
@@ -100,12 +114,42 @@ public class CustomerFrame extends JFrame {
                    }
                }
        );
+       exchangeField.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent actionEvent) {
+               String string = "";
+               float num;
+               if(actionEvent.getSource() == exchangeField)
+               {
+                   try{
+                       num = Float.parseFloat(actionEvent.getActionCommand());
+                       if(num <= .01f){
+                           string = "The amount must be greater than .01 SWD coins";
+                       }else {
+
+                           string = customers[comboBoxGlobalIndex].exchangeSWD(num);
+                           customerInfoLabel.setText(customers[0].displayAccount());
+
+                       }
+                   }catch (Exception e)
+                   {
+                       string = "A number is required";
+                   }
+               }
+               System.out.println("value of string is: " + string);
+               JOptionPane.showMessageDialog(null, string);
+           }
+       });
+
+       topPanel.add(customerInfoPanel);
+       topPanel.add(Box.createRigidArea(new Dimension(10,0)));
+       topPanel.add(ratePanel);
+       bottomPanel.add(exchangePanel);
+       bottomPanel.add(Box.createRigidArea(new Dimension(10,0)));
 
        //display to window
-       add(customerInfoPanel);
-       add(ratePanel);
-
-       add(customerInfoLabel);
+       add(topPanel);
+       add(bottomPanel);
 
     }
 }
