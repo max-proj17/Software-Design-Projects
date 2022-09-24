@@ -223,10 +223,9 @@ public class Customer {
     /**
      * Takes in the requested withdrawal amount and fills a HashMap with the most minimal
      * divisions of SWD currency to give back to the Customer. Displays to the console
-     * the currency division breakdown. The function returns this HashMap.
+     * the currency division breakdown. The function returns this data as a String.
      * @param withdrawAMT The amount requested in SWD
-     * @return a HashMap of the individual units of SWD currency that must be given back to the Customer.
-     * The return value has no function in the driver but is used in a JUNIT test named exchangesCorrectSWD()
+     * @return a String of the individual units of SWD currency that must be given back to the Customer.
      */
     public String exchangeSWD(float withdrawAMT){
 
@@ -299,9 +298,8 @@ public class Customer {
     /**
      * Deletes Customer that the function was called on. "Deletion" for this program is simply returning the
      * amount of USD left in the account. Displays to the console the currency division breakdown.
-     * The function returns this HashMap.
-     * @return a HashMap of the individual units of USD currency that must be given back to the Customer.
-     * The return value has no function in the driver but is used in a JUNIT test named deletesAccountReturnsCorrectUSDBalance()
+     * The function returns this String.
+     * @return a String of the individual units of USD currency that must be given back to the Customer.
      */
 
     public String deleteAccount()
@@ -321,13 +319,18 @@ public class Customer {
 
     }
     /**
-     * Returns the Customer's "credentials" which include the name and balance
+     * Returns the Customer's name. This acts the same as the getName function because JComboBox uses an objects toString method to
+     * label itself in a GUI.
      * @return String representing the Customer Object
      */
     public String toString(){
         //Combobox uses the toString of the object to label each selection. Unfortunately this causes redundancy of the toString and getName methods
         return name;
     }
+    /**
+     * Returns the Customer's "credentials" which include the name and balance
+     * @return String representing the Customer Object
+     */
     public String displayAccount()
     {
         String usd = String.format("%.2f", balance);

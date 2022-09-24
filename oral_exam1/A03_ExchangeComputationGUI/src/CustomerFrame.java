@@ -5,21 +5,86 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
+/**
+ * This class has only a no argument constructor, no methods, 13 private final variables and
+ * 1 private variable.
+ *
+ * @author Max Finch
+ */
 public class CustomerFrame extends JFrame {
+    /**
+     * This JLabel is used to display the selected customers Account information by the
+     * combo box
+     */
     private final JLabel customerInfoLabel;
-    private final JComboBox<Customer> customerInfoJComboBox;  //JComponent to select which customer to edit
+    /**
+     * This JComboBox is used to select the customer that can exchange SWD dollars, delete their account
+     * and have their information displayed by customerInfoLabel.
+     */
+    private final JComboBox<Customer> customerInfoJComboBox;
+    /**
+     * This int is used to keep track of the customer that's selected. It is utilized
+     * in the ItemListener for customerInfoJComboBox, ActionListener for
+     * rateField, exchangeField and deleteAccount
+     */
     private int comboBoxGlobalIndex;
+    /**
+     * This JPanel consists of customerInfoLabel and customerInfoJComboBox.
+     * This JPanel takes up the top left and top middle of the CustomerFrame.
+     */
     private final JPanel customerInfoPanel;
+    /**
+     * This JPanel houses customerInfoPanel and ratePanel at the top
+     *  of the CustomerFrame
+     */
     private final JPanel topPanel;
+    /**
+     * This JPanel houses exchangePanel and deleteAccount(JButton) at the bottom
+     * of the CustomerFrame
+     */
     private final JPanel bottomPanel;
+    /**
+     * This JPanel consists of exchangeField and exchangeLabel.
+     * This JPanel takes up the bottom left of the CustomerFrame.
+     */
     private final JPanel exchangePanel;
+    /**
+     * This JLabel displays the text "Exchange SWD" underneath the
+     * exchangeField.
+     */
     private final JLabel exchangeLabel;
+    /**
+     * This JTextField takes in the amount of SWD that the user wants to
+     * exchange from the selected account.
+     */
     private final JTextField exchangeField;
+    /**
+     * This JTextField takes in a new exchange rate provided by the user
+     * and changes the rate for all customers in its actionPerformed method
+     * by calling Customer.setRate().
+     */
 
-    private final JTextField rateField; //test field to change the rate
+    private final JTextField rateField;
+    /**
+     * This JPanel consists of rateField and rateLabel. This JPanel takes up
+     * the top right of the CustomerFrame.
+     */
+
     private final JPanel ratePanel;
+    /**
+     * This JLabel displays the current exchange rate underneath the
+     * rateField.
+     */
     private final JLabel rateLabel;
+    /**
+     * This JButton "deletes" the current selected Customer and
+     * triggers a pop-up window showing customer balance in USD.
+     */
     private final JButton deleteAccount;
+    /**
+     * This array contains all the Customers that are created
+     * with the CustomerFrame.
+     */
     private final Customer[] customers = {
             new Customer(500f, "Marco"),
             new Customer(20.75f, "Bella"),
@@ -31,10 +96,15 @@ public class CustomerFrame extends JFrame {
 
     };
 
+    /**
+     * No argument constructor
+     * Sets the layout to GridLayout with 2 rows, 1 column. The topPanel and bottomPanel
+     * will stack on top of each other.
+     */
     public CustomerFrame()
     {
        super("Customer Frame"); //inherited JFrame constructor
-       setLayout(new GridLayout(2,1, 20, 10)); // set frame layout
+       setLayout(new GridLayout(2,1));
 
 
        //major sections of the application
@@ -92,9 +162,10 @@ public class CustomerFrame extends JFrame {
                }
        );
 
-       //another anonymous innerclass for an actionListener for rateTextField.
+
        rateField.addActionListener(
-               new ActionListener() {
+               new ActionListener() //another anonymous innerclass for an actionListener for rateTextField.
+               {
                    @Override
                    public void actionPerformed(ActionEvent actionEvent) {
                        String string = "";
@@ -120,34 +191,37 @@ public class CustomerFrame extends JFrame {
                    }
                }
        );
-       exchangeField.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent actionEvent) {
-               String string = "";
-               float num;
-               if(actionEvent.getSource() == exchangeField)
+       exchangeField.addActionListener(
+               new ActionListener()  //another anonymous innerclass for an actionListener for exchangeField.
                {
-                   try{
-                       num = Float.parseFloat(actionEvent.getActionCommand());
-                       if(num <= .01f){
-                           string = "The amount must be greater than .01 SWD coins";
-                       }else {
+                   @Override
+                   public void actionPerformed(ActionEvent actionEvent) {
+                       String string = "";
+                       float num;
+                       if(actionEvent.getSource() == exchangeField)
+                       {
+                           try{
+                               num = Float.parseFloat(actionEvent.getActionCommand());
+                               if(num <= .01f){
+                                   string = "The amount must be greater than .01 SWD coins";
+                               }else {
 
-                           string = customers[comboBoxGlobalIndex].exchangeSWD(num);
-                           customerInfoLabel.setText(customers[comboBoxGlobalIndex].displayAccount());
+                                   string = customers[comboBoxGlobalIndex].exchangeSWD(num);
+                                   customerInfoLabel.setText(customers[comboBoxGlobalIndex].displayAccount());
 
+                               }
+                           }catch (Exception e)
+                           {
+                               string = "A number is required";
+                           }
                        }
-                   }catch (Exception e)
-                   {
-                       string = "A number is required";
+                       JOptionPane.showMessageDialog(null, string);
                    }
-               }
-               JOptionPane.showMessageDialog(null, string);
-           }
        });
 
        deleteAccount.addActionListener(
-               new ActionListener() {
+               new ActionListener() //another anonymous innerclass for an actionListener for deleteAccount.
+               {
                    @Override
                    public void actionPerformed(ActionEvent actionEvent) {
                        String string = customers[comboBoxGlobalIndex].deleteAccount();
@@ -156,17 +230,19 @@ public class CustomerFrame extends JFrame {
                }
        );
 
+       //creates space between customerInfoPanel, customerInfoLabel and ratePanel
        topPanel.add(customerInfoPanel);
        topPanel.add(Box.createRigidArea(new Dimension(10,0)));
        topPanel.add(customerInfoLabel);
        topPanel.add(Box.createRigidArea(new Dimension(10,0)));
        topPanel.add(ratePanel);
 
+       //creates space between exchangePanel and deleteAccount
        bottomPanel.add(exchangePanel);
        bottomPanel.add(Box.createRigidArea(new Dimension(10,0)));
        bottomPanel.add(deleteAccount);
 
-       //display to window
+       //add to CustomerFrame
        add(topPanel);
        add(bottomPanel);
 
