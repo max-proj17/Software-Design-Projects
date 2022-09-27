@@ -2,6 +2,11 @@ public abstract class Game {
 
     private String homeTeam;
     private String awayTeam;
+    private String[] footBallScoring = {"touchdown", "field goal", "extra-point", "two-point conversion", "safety"};
+    private String[] hockeyScoring = {};
+    private String[] soccerScoring = {};
+    private String[] baseBallScoring = {};
+    private String[] basketBallScoring = {};
 
     public Game(){
 
@@ -13,6 +18,7 @@ public abstract class Game {
     }
 
     protected abstract void addScore(String Team);
+    protected abstract String[] getScoringTypes();
 
     public String getHomeTeam() {
         return homeTeam;

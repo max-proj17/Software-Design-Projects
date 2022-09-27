@@ -1,15 +1,20 @@
 import java.util.Scanner;
 
 public class ScoreLoop {
-    private Scanner sc = new Scanner(System.in);
-    private int gameOption;
+    private final Scanner sc = new Scanner(System.in);
+    private final int finalGameOption;
+    private int notFinalGameOption;
     private String homeTeam;
     private String awayTeam;
     private final Game game;
     public ScoreLoop()
     {
         mainMenuScreen();
-        game = selectedGameLoop(gameOption);
+        //Two game option variables exist because finalGameOption MUST be initialized in the constructor.
+        //notFinalGameOption cannot affect the program by re-assignment because its value gets immediately stored
+        //in finalGameOption.
+        finalGameOption = notFinalGameOption;
+        game = selectGameLoop(finalGameOption);
     }
     private void mainMenuScreen()
     {
@@ -45,7 +50,7 @@ public class ScoreLoop {
                     int tmp = Integer.parseInt(sc.nextLine());
                     if(tmp== 1 || tmp == 2 || tmp==3 || tmp==4 || tmp==5)
                     {
-                        gameOption = tmp;
+                        notFinalGameOption = tmp;
                         valid = true;
 
                     }else {
@@ -76,7 +81,7 @@ public class ScoreLoop {
         }
     }
 
-    private Game selectedGameLoop(int gameOption)
+    private Game selectGameLoop(int gameOption)
     {
         //Make new Game object
         Game tmpGame = null;
@@ -89,6 +94,17 @@ public class ScoreLoop {
             case 5 -> tmpGame = new HockeyGame(homeTeam, awayTeam);
         }
         return tmpGame;
+
+    }
+    private void GameLoop()
+    {
+        //for loop to print menu
+//        for(int i=0; i<game; i++) {
+//            System.out.println(homeTeam );
+//        }
+//        for(int i=0; i<game; i++) {
+//
+//        }
 
     }
 

@@ -9,5 +9,11 @@ public class FootballGame extends Game{
     @Override
     protected void addScore(String Team) {
 
+
     }
+    @Override
+    protected String[] getScoringTypes() {
+        return new String[0];
+    }
+
 }
