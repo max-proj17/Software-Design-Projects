@@ -77,24 +77,5 @@ public class FootballGame extends Game{
         return getPeriodNum() == getMaxPeriodNum();
     }
 
-    @Override
-    protected int determineWinner() {
-        if(getHomeScore() > getAwayScore())
-        {
-            setWinner(getHomeTeam());
-            return 1; //Home team wins
-        }else if(getHomeScore() < getAwayScore())
-        {
-            setWinner(getAwayTeam());
-            return 2; //Away team wins
-        }else if(getHomeScore() == getAwayScore())
-        {
-            return 3; //It was a tie
-        }else{
-            return 0; //arbitrary value to satisfy return requirement
-        }
-    }
-
-
 
 }

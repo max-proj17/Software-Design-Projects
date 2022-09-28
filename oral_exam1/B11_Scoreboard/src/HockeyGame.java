@@ -5,22 +5,8 @@ public class HockeyGame extends Game{
 
     public HockeyGame(String homeTeam, String awayTeam)
     {
+
         super(homeTeam, awayTeam);
-    }
-
-    @Override
-    protected HashMap<String, Integer> getScoringTypes() {
-        return null;
-    }
-
-    @Override
-    protected void setMaxPeriodNum(int maxPeriodNum) {
-
-    }
-
-    @Override
-    protected int getMaxPeriodNum() {
-        return 0;
     }
 
 
@@ -37,11 +23,6 @@ public class HockeyGame extends Game{
     @Override
     protected Boolean gameOverCheck() {
         return null;
-    }
-
-    @Override
-    protected int determineWinner() {
-        return 0;
     }
 
 

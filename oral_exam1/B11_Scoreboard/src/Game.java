@@ -30,7 +30,22 @@ public abstract class Game {
     protected abstract void selectPlay(int selection);
     protected abstract String getPeriodOfPlay();
     protected abstract Boolean gameOverCheck();
-    protected abstract int determineWinner();
+    protected int determineWinner() {
+        if(getHomeScore() > getAwayScore())
+        {
+            setWinner(getHomeTeam());
+            return 1; //Home team wins
+        }else if(getHomeScore() < getAwayScore())
+        {
+            setWinner(getAwayTeam());
+            return 2; //Away team wins
+        }else if(getHomeScore() == getAwayScore())
+        {
+            return 3; //It was a tie
+        }else{
+            return 0; //arbitrary value to satisfy return requirement
+        }
+    }
 
     protected int getMaxPeriodNum() {
         return maxPeriodNum;
