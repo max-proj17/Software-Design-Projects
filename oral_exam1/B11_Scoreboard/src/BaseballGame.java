@@ -6,6 +6,7 @@ public class BaseballGame extends Game{
     public BaseballGame(String homeTeam, String awayTeam)
     {
         super(homeTeam, awayTeam);
+
     }
 
     @Override
@@ -22,7 +23,6 @@ public class BaseballGame extends Game{
     protected int getMaxPeriodNum() {
         return 0;
     }
-
 
     @Override
     protected void selectPlay(int selection) {
