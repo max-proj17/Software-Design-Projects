@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class HockeyGame extends Game{
 
 
@@ -7,7 +9,19 @@ public class HockeyGame extends Game{
     }
 
     @Override
-    protected void addScore(String Team) {
+    protected HashMap<String, Integer> getScoringTypes() {
+        return null;
+    }
+
+    @Override
+    protected void addScore(String team, String scoreType) {
 
     }
+
+    @Override
+    protected void selectPlay(int selection) {
+
+    }
+
+
 }

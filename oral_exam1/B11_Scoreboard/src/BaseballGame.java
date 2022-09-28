@@ -1,6 +1,7 @@
+import java.util.HashMap;
+
 public class BaseballGame extends Game{
-    private int numRunsHome;
-    private int numRunsAway;
+
 
     public BaseballGame(String homeTeam, String awayTeam)
     {
@@ -8,17 +9,19 @@ public class BaseballGame extends Game{
     }
 
     @Override
-    protected void addScore(String team) {
-        if(team.equals(getHomeTeam()))
-        {
-            numRunsHome+=1;
-        }else if(team.equals(getAwayTeam()))
-        {
-            numRunsAway+=1;
-        }
+    protected HashMap<String, Integer> getScoringTypes() {
+        return null;
+    }
+
+    @Override
+    protected void addScore(String team, String scoreType) {
 
     }
 
+    @Override
+    protected void selectPlay(int selection) {
+
+    }
 
 
 }

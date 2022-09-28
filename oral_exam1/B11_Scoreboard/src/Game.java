@@ -1,13 +1,11 @@
+import java.util.HashMap;
+
 public abstract class Game {
 
     private String homeTeam;
     private String awayTeam;
-    private String[] footBallScoring = {"touchdown", "field goal", "extra-point", "two-point conversion", "safety"};
-    private String[] hockeyScoring = {};
-    private String[] soccerScoring = {};
-    private String[] baseBallScoring = {};
-    private String[] basketBallScoring = {};
-
+    private int homeScore;
+    private int awayScore;
     public Game(){
 
     }
@@ -17,8 +15,10 @@ public abstract class Game {
         this.awayTeam = awayTeam;
     }
 
-    protected abstract void addScore(String Team);
-    protected abstract String[] getScoringTypes();
+
+    protected abstract HashMap<String, Integer> getScoringTypes();
+    protected abstract void addScore(String team, String scoreType);
+    protected abstract void selectPlay(int selection);
 
     public String getHomeTeam() {
         return homeTeam;
@@ -35,4 +35,5 @@ public abstract class Game {
     public void setAwayTeam(String awayTeam) {
         this.awayTeam = awayTeam;
     }
+
 }

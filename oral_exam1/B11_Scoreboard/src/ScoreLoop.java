@@ -1,3 +1,4 @@
+import java.util.Map;
 import java.util.Scanner;
 
 public class ScoreLoop {
@@ -6,6 +7,8 @@ public class ScoreLoop {
     private int notFinalGameOption;
     private String homeTeam;
     private String awayTeam;
+
+
     private final Game game;
     public ScoreLoop()
     {
@@ -15,6 +18,8 @@ public class ScoreLoop {
         //in finalGameOption.
         finalGameOption = notFinalGameOption;
         game = selectGameLoop(finalGameOption);
+        gameLoop();
+
     }
     private void mainMenuScreen()
     {
@@ -75,9 +80,28 @@ public class ScoreLoop {
                     sc.nextLine();
                 }
             }while(!valid);
-        }else if(inputType == 3)
-        {
+        }else if(inputType == 3) {
+            do {
+                System.out.println("Enter Choice: ");
+                int selection = (game.getScoringTypes().size() * 2) + 1;
+                if (sc.hasNextInt()) {
+                    //We must parse the int from the whole line because the scanner cursor will stop at the int and not automatically go to a new line.
+                    int tmp = Integer.parseInt(sc.nextLine());
+                    if (tmp <= selection && tmp > 0) {
+                        notFinalGameOption = tmp;
+                        valid = true;
 
+                    } else {
+                        System.out.println("Invalid Input");
+
+                    }
+                } else {
+
+                    System.out.println("Invalid Input");
+                    sc.nextLine();
+                }
+
+            } while (!valid);
         }
     }
 
@@ -96,15 +120,27 @@ public class ScoreLoop {
         return tmpGame;
 
     }
-    private void GameLoop()
-    {
-        //for loop to print menu
-//        for(int i=0; i<game; i++) {
-//            System.out.println(homeTeam );
-//        }
-//        for(int i=0; i<game; i++) {
-//
-//        }
+    private void gameLoop() {
+        int selection = 1;
+        int exitOption = (game.getScoringTypes().size() * 2) + 1;
+        while (notFinalGameOption != exitOption){
+
+            //for loop to print menu
+            System.out.println("Menu:");
+            for (Map.Entry<String, Integer> scoreType : game.getScoringTypes().entrySet()) {
+                System.out.println(selection + ". " + homeTeam + " " + scoreType.getKey());
+                selection++;
+            }
+            for (Map.Entry<String, Integer> scoreType : game.getScoringTypes().entrySet()) {
+                System.out.println(selection + ". " + awayTeam + " " + scoreType.getKey());
+                selection++;
+            }
+            System.out.println(exitOption + ". ");
+            validInput(3); //will set notFinalGameOption to the inputted value
+            //game
+            //choose action to do
+
+        }
 
     }
 
