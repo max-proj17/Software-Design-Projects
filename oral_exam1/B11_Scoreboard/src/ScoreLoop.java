@@ -24,7 +24,7 @@ public class ScoreLoop {
     private void mainMenuScreen()
     {
 
-        System.out.println("Select the game you would like to play");
+        System.out.println("Select the game you would like to score");
         System.out.println("1. Soccer");
         System.out.println("2. Basketball");
         System.out.println("3. Baseball");
@@ -121,10 +121,12 @@ public class ScoreLoop {
 
     }
     private void gameLoop() {
-        int selection = 1;
+        int selection;
         int exitOption = (game.getScoringTypes().size() * 2) + 1;
-        while (notFinalGameOption != exitOption){
-
+        while (!game.gameOverCheck()){
+            selection = 1;
+            System.out.println(homeTeam + " - " + game.getHomeScore() + ", " + awayTeam + " - " + game.getAwayScore());
+            System.out.println("Current " + game.getPeriodOfPlay() + "\n");
             //for loop to print menu
             System.out.println("Menu:");
             for (Map.Entry<String, Integer> scoreType : game.getScoringTypes().entrySet()) {
@@ -135,11 +137,24 @@ public class ScoreLoop {
                 System.out.println(selection + ". " + awayTeam + " " + scoreType.getKey());
                 selection++;
             }
-            System.out.println(exitOption + ". ");
+            System.out.println(exitOption + ". " + "End " + game.getPeriodOfPlay());
             validInput(3); //will set notFinalGameOption to the inputted value
-            //game
+            //choose action to do
+            game.selectPlay(notFinalGameOption);
+            if(game.gameOverCheck() && game.determineWinner() == 3) //if we have a tie and the last period has ended. Continue the game.
+            {
+                game.setMaxPeriodNum(game.getMaxPeriodNum() + 1);
+            }
             //choose action to do
 
+        }
+        System.out.println("\nGame is over");
+        System.out.println(homeTeam + " - " + game.getHomeScore() + ", " + awayTeam + " - " + game.getAwayScore());
+        System.out.println("Winner: " + game.getWinner());
+        System.out.println("\nREPLAY:\n");
+        for (int i=0; i<game.getGameLog().size(); i++)
+        {
+            System.out.println(game.getGameLog().get(i));
         }
 
     }
