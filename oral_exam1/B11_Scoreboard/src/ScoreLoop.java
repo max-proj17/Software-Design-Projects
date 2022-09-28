@@ -29,7 +29,7 @@ public class ScoreLoop {
         System.out.println("2. Basketball");
         System.out.println("3. Baseball");
         System.out.println("4. Football");
-        System.out.println("5. Hockey");
+        System.out.println("5. Hockey (International Rules)");
         validInput(1);
 
         System.out.println("Enter Home Team: ");
@@ -45,7 +45,7 @@ public class ScoreLoop {
         //Input type 1: Game selection validation
         //Input type 2: Team name validation
         //Input type 3: Game choice validation //Not yet implemented
-        Boolean valid = false;
+        boolean valid = false;
         if(inputType == 1)
         {
             do {
@@ -141,7 +141,7 @@ public class ScoreLoop {
             validInput(3); //will set notFinalGameOption to the inputted value
             //choose action to do
             game.selectPlay(notFinalGameOption);
-            if(game.gameOverCheck() && game.determineWinner() == 3) //if we have a tie and the last period has ended. Continue the game.
+            if(game.gameOverCheck() && game.determineWinner() == 3 && game.getOvertime()) //if we have a tie and the last period has ended. Continue the game.
             {
                 game.setMaxPeriodNum(game.getMaxPeriodNum() + 1);
             }
@@ -150,7 +150,7 @@ public class ScoreLoop {
         }
         System.out.println("\nGame is over");
         System.out.println(homeTeam + " - " + game.getHomeScore() + ", " + awayTeam + " - " + game.getAwayScore());
-        System.out.println("Winner: " + game.getWinner());
+        System.out.println(game.getWinner());
         System.out.println("\nREPLAY:\n");
         for (int i=0; i<game.getGameLog().size(); i++)
         {

@@ -5,6 +5,7 @@ public abstract class Game {
 
     private final ArrayList<String> gameLog = new ArrayList<>();
     private final HashMap<String, Integer> scoringTypes  = new HashMap<>();
+
     private final String homeTeam;
     private final String awayTeam;
     private int homeScore;
@@ -12,6 +13,7 @@ public abstract class Game {
     private String winner;
     private int periodNum;
     private int maxPeriodNum;
+    private boolean overtime;
 
 
     public Game(){ //Is not used BUT is required for final variable declaration
@@ -25,7 +27,15 @@ public abstract class Game {
 
     }
 
-    protected HashMap<String, Integer> getScoringTypes(){return scoringTypes;};
+    public boolean getOvertime() {
+        return overtime;
+    }
+
+    public void setOvertime(boolean overtime) {
+        this.overtime = overtime;
+    }
+
+    protected HashMap<String, Integer> getScoringTypes(){return scoringTypes;}
 
     protected abstract void selectPlay(int selection);
     protected abstract String getPeriodOfPlay();
@@ -33,14 +43,15 @@ public abstract class Game {
     protected int determineWinner() {
         if(getHomeScore() > getAwayScore())
         {
-            setWinner(getHomeTeam());
+            setWinner("Winner: " + getHomeTeam());
             return 1; //Home team wins
         }else if(getHomeScore() < getAwayScore())
         {
-            setWinner(getAwayTeam());
+            setWinner("Winner: " + getAwayTeam());
             return 2; //Away team wins
         }else if(getHomeScore() == getAwayScore())
         {
+            setWinner("Tie");
             return 3; //It was a tie
         }else{
             return 0; //arbitrary value to satisfy return requirement

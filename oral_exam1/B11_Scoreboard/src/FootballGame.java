@@ -1,10 +1,10 @@
-import java.util.HashMap;
 
 public class FootballGame extends Game{
     private final String period;
     public FootballGame(String homeTeam, String awayTeam)
     {
         super(homeTeam, awayTeam);
+        setOvertime(true);
         setPeriodNum(1);
         setMaxPeriodNum(5);
         period = "quarter: ";

@@ -1,4 +1,3 @@
-import java.util.HashMap;
 
 public class BaseballGame extends Game{
 
@@ -8,6 +7,7 @@ public class BaseballGame extends Game{
     public BaseballGame(String homeTeam, String awayTeam)
     {
         super(homeTeam, awayTeam);
+        setOvertime(true);
         periodHalf = 1;
         setPeriodNum(1);
         setMaxPeriodNum(9);
@@ -53,7 +53,7 @@ public class BaseballGame extends Game{
                 getGameLog().add(getAwayTeam() + " Single run");
             }
             case 8 -> {
-                setHomeScore(getAwayScore() + getScoringTypes().get("Grand Slam"));
+                setAwayScore(getAwayScore() + getScoringTypes().get("Grand Slam"));
                 getGameLog().add(getAwayTeam() + " Grand Slam");
             }
 
