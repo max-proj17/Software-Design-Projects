@@ -1,4 +1,9 @@
-
+/**
+ * This class has only a no argument constructor, no methods, 13 private final variables and
+ * 1 private variable.
+ *
+ * @author Max Finch
+ */
 public class FootballGame extends Game{
     private final String period;
     public FootballGame(String homeTeam, String awayTeam)

@@ -1,15 +1,43 @@
 import java.util.Map;
 import java.util.Scanner;
+/**
+ * This class has only a no argument constructor, 4 private methods, 3 private final variables and
+ * 3 private variables.
+ *
+ * @author Max Finch
+ */
 
 public class ScoreLoop {
+    /**
+     * Scanner object used to read all user input
+     */
     private final Scanner sc = new Scanner(System.in);
+    /**
+     * When the user chooses the game to score it is assigned to finalGameOption and the option CANNOT be changed.
+     */
     private final int finalGameOption;
+    /**
+     * When the user chooses the game to score this variable stores the selection that was set in validInput() (called in mainMenuScreen).
+     * Because the different printing components are separated for sake of organization, we cannot assign finalGameOption with
+     * notFinalGameOption directly.
+     */
     private int notFinalGameOption;
+    /**
+     * Holds the home team name. This variable is not final because like notFinalGameOption it is assigned outside the constructor.
+     */
     private String homeTeam;
+    /**
+     * Holds the away team name. This variable is not final because like notFinalGameOption it is assigned outside the constructor.
+     */
     private String awayTeam;
-
-
+    /**
+     * Keeps hold of the Game type that the user selects. This variable IS FINAL because there is no need to change the type of game
+     * mid-match.
+     */
     private final Game game;
+    /**
+     * No argument constructor. Launches the menu screen, selects and starts the game loop.
+     */
     public ScoreLoop()
     {
         mainMenuScreen();
@@ -21,6 +49,9 @@ public class ScoreLoop {
         gameLoop();
 
     }
+    /**
+     * This method displays the main menu. It uses validInput() to verify each option selected (In this case: game type, home team, away team)
+     */
     private void mainMenuScreen()
     {
 
@@ -40,11 +71,15 @@ public class ScoreLoop {
         awayTeam = sc.nextLine();
 
     }
+    /**
+     * validInput handles three types of input:
+     * Input type 1: Game selection validation
+     * Input type 2: Team name validation
+     * Input type 3: In-Game choice validation
+     * @param inputType type of selection being made
+     */
     private void validInput(int inputType)
     {
-        //Input type 1: Game selection validation
-        //Input type 2: Team name validation
-        //Input type 3: Game choice validation //Not yet implemented
         boolean valid = false;
         if(inputType == 1)
         {
@@ -120,7 +155,13 @@ public class ScoreLoop {
             } while (!valid);
         }
     }
-
+    /**
+     * Selects the game to start. Assigns ScoreLoop's Game variable
+     * to the selected gameOption. The different cases for gameOption
+     * correspond to the print statements in mainMenuScreen()
+     * @param gameOption index of the type of game to be scored
+     * @return selected Game object
+     */
     private Game selectGameLoop(int gameOption)
     {
         //Make new Game object
@@ -136,6 +177,23 @@ public class ScoreLoop {
         return tmpGame;
 
     }
+    /**
+     * This method displays ANY type of game. No code here is game specific.
+     * Displays the current score of the game, current game "period", scoring options
+     * for both teams and period ending for the game.
+     *
+     * This method will take user input until the last "period" for the selected game type
+     * reaches its end. It will then decide the winner and print a replay of every score
+     * each team made in each "period"
+     *
+     * If there is a tie the method will check if the selected game allows overtime. If the Game
+     * goes into overtime it will run until the Game's specific rules say it should end.
+     * (First to score, another inning, etc.). When it ends the replay will be
+     * shown.
+     *
+     * If there is a tie and overtime is NOT allowed. The Game will end as a tie and the replay will be
+     * shown.
+     */
     private void gameLoop() {
         int selection;
         int exitOption = (game.getScoringTypes().size() * 2) + 1;
@@ -143,8 +201,8 @@ public class ScoreLoop {
             selection = 1;
             System.out.println(homeTeam + " - " + game.getHomeScore() + ", " + awayTeam + " - " + game.getAwayScore());
             System.out.println("Current " + game.getPeriodOfPlay() + "\n");
-            //for loop to print menu
             System.out.println("Menu:");
+
             for (Map.Entry<String, Integer> scoreType : game.getScoringTypes().entrySet()) {
                 System.out.println(selection + ". " + homeTeam + " " + scoreType.getKey());
                 selection++;
@@ -153,16 +211,15 @@ public class ScoreLoop {
                 System.out.println(selection + ". " + awayTeam + " " + scoreType.getKey());
                 selection++;
             }
+
             System.out.println(exitOption + ". " + "End " + game.getPeriodOfPlay());
-            validInput(3); //will set notFinalGameOption to the inputted value
-            //choose action to do
+            validInput(3);
             game.selectPlay(notFinalGameOption);
+
             if(game.gameOverCheck() && game.determineWinner() == 3 && game.getOvertime()) //if we have a tie and the last period has ended. Continue the game.
             {
                 game.setMaxPeriodNum(game.getMaxPeriodNum() + 1);
             }
-            //choose action to do
-
         }
         System.out.println("\nGame is over");
         System.out.println(homeTeam + " - " + game.getHomeScore() + ", " + awayTeam + " - " + game.getAwayScore());

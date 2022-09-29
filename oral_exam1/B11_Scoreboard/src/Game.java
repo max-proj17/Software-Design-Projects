@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * This class has only a no argument constructor, no methods, 13 private final variables and
+ * 1 private variable.
+ *
+ * @author Max Finch
+ */
 public abstract class Game {
 
     private final ArrayList<String> gameLog = new ArrayList<>();

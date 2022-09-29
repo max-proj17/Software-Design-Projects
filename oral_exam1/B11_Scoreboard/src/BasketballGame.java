@@ -1,4 +1,10 @@
 
+/**
+ * This class has only a no argument constructor, no methods, 13 private final variables and
+ * 1 private variable.
+ *
+ * @author Max Finch
+ */
 public class BasketballGame extends Game{
 
     private final String period;
