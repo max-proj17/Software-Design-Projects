@@ -10,7 +10,7 @@ public class BaseballGame extends Game{
         setOvertime(true);
         periodHalf = 1;
         setPeriodNum(1);
-        setMaxPeriodNum(9);
+        setMaxPeriodNum(10);
         period = "Top of Inning: ";
         getScoringTypes().put("Grand Slam", 4);
         getScoringTypes().put("Two-run homer", 2);
