@@ -49,21 +49,26 @@ public class ScoreLoop {
         if(inputType == 1)
         {
             do {
-                System.out.println("Enter Choice: ");
-                if (sc.hasNextInt()){
-                    //We must parse the int from the whole line because the scanner cursor will stop at the int and not automatically go to a new line.
-                    int tmp = Integer.parseInt(sc.nextLine());
-                    if(tmp== 1 || tmp == 2 || tmp==3 || tmp==4 || tmp==5)
-                    {
-                        notFinalGameOption = tmp;
-                        valid = true;
+                try {
+                    System.out.println("Enter Choice: ");
+                    if (sc.hasNextInt()) {
+                        //We must parse the int from the whole line because the scanner cursor will stop at the int and not automatically go to a new line.
+                        int tmp = Integer.parseInt(sc.nextLine());
+                        if (tmp == 1 || tmp == 2 || tmp == 3 || tmp == 4 || tmp == 5) {
+                            notFinalGameOption = tmp;
+                            valid = true;
 
-                    }else {
+                        } else {
+                            System.out.println("Invalid Input");
+                            sc.nextLine();
+                        }
+                    } else {
+
                         System.out.println("Invalid Input");
                         sc.nextLine();
                     }
-                }else{
-
+                }catch (Exception e)
+                {
                     System.out.println("Invalid Input");
                     sc.nextLine();
                 }
@@ -71,36 +76,47 @@ public class ScoreLoop {
         }else if(inputType == 2)
         {
             do {
-                if (!sc.hasNextInt()){
-                    valid = true;
+                try {
+                    if (!sc.hasNextInt()) {
+                        valid = true;
 
-                }else{
+                    } else {
 
+                        System.out.println("Invalid Input. Team name must contain letters.");
+                        sc.nextLine();
+                    }
+                }catch (Exception e)
+                {
                     System.out.println("Invalid Input. Team name must contain letters.");
                     sc.nextLine();
                 }
             }while(!valid);
         }else if(inputType == 3) {
             do {
-                System.out.println("Enter Choice: ");
-                int selection = (game.getScoringTypes().size() * 2) + 1;
-                if (sc.hasNextInt()) {
-                    //We must parse the int from the whole line because the scanner cursor will stop at the int and not automatically go to a new line.
-                    int tmp = Integer.parseInt(sc.nextLine());
-                    if (tmp <= selection && tmp > 0) {
-                        notFinalGameOption = tmp;
-                        valid = true;
+                try {
+                    System.out.println("Enter Choice: ");
+                    int selection = (game.getScoringTypes().size() * 2) + 1;
+                    if (sc.hasNextInt()) {
+                        //We must parse the int from the whole line because the scanner cursor will stop at the int and not automatically go to a new line.
+                        int tmp = Integer.parseInt(sc.nextLine());
+                        if (tmp <= selection && tmp > 0) {
+                            notFinalGameOption = tmp;
+                            valid = true;
 
+                        } else {
+                            System.out.println("Invalid Input");
+
+                        }
                     } else {
+
                         System.out.println("Invalid Input");
-
+                        sc.nextLine();
                     }
-                } else {
-
+                }catch(Exception e)
+                {
                     System.out.println("Invalid Input");
                     sc.nextLine();
                 }
-
             } while (!valid);
         }
     }

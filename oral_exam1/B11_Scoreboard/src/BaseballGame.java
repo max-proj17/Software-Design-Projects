@@ -10,7 +10,7 @@ public class BaseballGame extends Game{
         setOvertime(true);
         periodHalf = 1;
         setPeriodNum(1);
-        setMaxPeriodNum(10);
+        setMaxPeriodNum(9);
         period = "Top of Inning: ";
         getScoringTypes().put("Grand Slam", 4);
         getScoringTypes().put("Two-run homer", 2);
@@ -60,12 +60,12 @@ public class BaseballGame extends Game{
             case 9 -> {
                 if(periodHalf == 1)
                 {
-                    getGameLog().add(period + (getPeriodNum() - 1) + " END");
+                    getGameLog().add(period + getPeriodNum() + " END");
                     period = "Bottom of Inning: ";
                     periodHalf = 2;
                 }else if (periodHalf == 2)
                 {
-                    getGameLog().add(period + (getPeriodNum() - 1) + " END");
+                    getGameLog().add(period + getPeriodNum() + " END");
                     setPeriodNum(getPeriodNum()+1);
                     period = "Top of Inning: ";
                     periodHalf = 1;
@@ -82,7 +82,7 @@ public class BaseballGame extends Game{
 
     @Override
     protected Boolean gameOverCheck() {
-        return getPeriodNum() == getMaxPeriodNum() && period.equals("Bottom of Inning: ");
+        return getPeriodNum() > getMaxPeriodNum();
     }
 
 
