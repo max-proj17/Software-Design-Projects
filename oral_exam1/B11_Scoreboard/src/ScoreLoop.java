@@ -1,13 +1,13 @@
 import java.util.Map;
 import java.util.Scanner;
 /**
- * This class has only a no argument constructor, 4 private methods, 3 private final variables and
- * 3 private variables.
+ * This final class has only a no argument constructor, 4 private methods, 3 private final variables and
+ * 3 private variables. There is no reason for this class to be extended.
  *
  * @author Max Finch
  */
 
-public class ScoreLoop {
+public final class ScoreLoop {
     /**
      * Scanner object used to read all user input
      */
@@ -188,7 +188,6 @@ public class ScoreLoop {
      * goes into overtime it will run until the Game's specific rules say it should end.
      * (First to score, another inning, etc.). When it ends the replay will be
      * shown.
-     *
      * If there is a tie and overtime is NOT allowed. The Game will end as a tie and the replay will be
      * shown.
      */

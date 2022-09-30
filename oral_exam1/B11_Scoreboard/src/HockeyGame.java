@@ -1,6 +1,5 @@
 /**
- * This class has
- *
+ * This class has a two-argument constructor, 1 private variable and two override protected methods.
  * @author Max Finch
  */
 public class HockeyGame extends Game{

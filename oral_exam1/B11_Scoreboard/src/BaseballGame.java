@@ -1,6 +1,6 @@
 
 /**
- * This class has a two-argument instructor 2 private variables
+ * This class has a two-argument constructor, 2 private variables and two override protected methods.
  *
  * @author Max Finch
  */

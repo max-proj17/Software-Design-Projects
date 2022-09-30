@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
- * This class has a two-argument instructor, two protected abstract methods,  4 private final variables, 6 private variables
- *
+ * This class has a two-argument constructor, two protected abstract methods, 17 protected methods, 4 private final variables, 6 private variables
  * @author Max Finch
  */
 public abstract class Game {
@@ -91,14 +90,14 @@ public abstract class Game {
      * This method determines whether the game is allowed to have overtime.
      * @return boolean signifying with true/false if the game gets overtime or not.
      */
-    public boolean getOvertime() {
+    protected boolean getOvertime() {
         return overtime;
     }
     /**
      * This method allows a subclass to decide whether a game has overtime or not
      * @param overtime true/false if the game gets overtime or not.
      */
-    public void setOvertime(boolean overtime) {
+    protected void setOvertime(boolean overtime) {
         this.overtime = overtime;
     }
     /**
@@ -162,56 +161,56 @@ public abstract class Game {
      * shifts to this ArrayList<String>.
      * @return an ArrayList<String> of game history made in a games selectPlay() method.
      */
-    public ArrayList<String> getGameLog() {
+    protected ArrayList<String> getGameLog() {
         return gameLog;
     }
     /**
      * This method gets the winner of the Game.
      * @return the winner or "tie" as a String
      */
-    public String getWinner() {
+    protected String getWinner() {
         return winner;
     }
     /**
      * This method gets the home team's name.
      * @return home team's name.
      */
-    public String getHomeTeam() {
+    protected String getHomeTeam() {
         return homeTeam;
     }
     /**
      * This method gets the away team's name.
      * @return away team's name.
      */
-    public String getAwayTeam() {
+    protected String getAwayTeam() {
         return awayTeam;
     }
     /**
      * This method gets the home team's score.
      * @return home team's score.
      */
-    public int getHomeScore() {
+    protected int getHomeScore() {
         return homeScore;
     }
     /**
      * This method sets the home team's score.
      * @param homeScore new home team's score.
      */
-    public void setHomeScore(int homeScore) {
+    protected void setHomeScore(int homeScore) {
         this.homeScore = homeScore;
     }
     /**
      * This method gets the away team's score.
      * @return away team's score.
      */
-    public int getAwayScore() {
+    protected int getAwayScore() {
         return awayScore;
     }
     /**
      * This method sets the away team's score.
      * @param awayScore new away team's score.
      */
-    public void setAwayScore(int awayScore) {
+    protected void setAwayScore(int awayScore) {
         this.awayScore = awayScore;
     }
 
