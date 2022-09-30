@@ -181,11 +181,9 @@ public class ScoreLoop {
      * This method displays ANY type of game. No code here is game specific.
      * Displays the current score of the game, current game "period", scoring options
      * for both teams and period ending for the game.
-     *
      * This method will take user input until the last "period" for the selected game type
      * reaches its end. It will then decide the winner and print a replay of every score
      * each team made in each "period"
-     *
      * If there is a tie the method will check if the selected game allows overtime. If the Game
      * goes into overtime it will run until the Game's specific rules say it should end.
      * (First to score, another inning, etc.). When it ends the replay will be
