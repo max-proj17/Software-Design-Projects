@@ -95,7 +95,7 @@ public final class ScoreLoop {
 
                         } else {
                             System.out.println("Invalid Input");
-                            sc.nextLine();
+
                         }
                     } else {
 
