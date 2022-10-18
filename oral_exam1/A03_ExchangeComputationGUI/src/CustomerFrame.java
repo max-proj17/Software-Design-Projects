@@ -126,7 +126,6 @@ public class CustomerFrame extends JFrame {
        //delete account button setup
        deleteAccount = new JButton("Delete Account");
 
-
        //Exchange Window setup
        exchangePanel = new JPanel();
        exchangeField = new JTextField();
