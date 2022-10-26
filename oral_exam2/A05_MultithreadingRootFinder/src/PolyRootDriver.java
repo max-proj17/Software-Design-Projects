@@ -7,12 +7,29 @@ public class PolyRootDriver {
 
     public static void main(String [] args)
     {
-        final Scanner sc = new Scanner(System.in);
+
         ExecutorService executorService = Executors.newCachedThreadPool();
-        boolean valid = false;
-        int selection;
+
         System.out.println("Select either\n1: Generate and solve 30 sets of randomly generated coefficients");
         System.out.println("2: Generate and solve 30 sets of randomly generated coefficients");
+        int selection = inputValidation();
+
+        if(selection == 1)
+        {
+
+        } else if (selection == 2) {
+
+        }
+
+
+
+        //Buffer inputs = new CircularBuffer();
+    }
+    public static int inputValidation()
+    {
+        final Scanner sc = new Scanner(System.in);
+        boolean valid = false;
+        int selection = 0;
         do {
             try {
                 if (sc.hasNextInt()) {
@@ -34,6 +51,6 @@ public class PolyRootDriver {
             }
         }while(!valid);
 
-        //Buffer inputs = new CircularBuffer();
+        return selection;
     }
 }
