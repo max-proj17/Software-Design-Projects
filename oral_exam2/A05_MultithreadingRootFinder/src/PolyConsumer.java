@@ -1,8 +1,8 @@
-public class PolyServant implements Runnable{
+public class PolyConsumer implements Runnable{
 
     private final double[] coefficients;
     private int processed;
-    public PolyServant(double [] coefficients) //replace this array with proper buffer object later
+    public PolyConsumer(double [] coefficients) //replace this array with proper buffer object later
     {
         this.coefficients = coefficients;
     }
