@@ -6,7 +6,7 @@ public class CircularBuffer implements Buffer{
     private int writeIndex = 0;
     public CircularBuffer(int bufferSize, int elementSize)
     {
-        //buffersize determines the rows of the buffer
+        //buffer size determines the rows of the buffer
         //element size determines the size of the input or output value (3 for 3 "tuple" input, 2 for 2 root "tuple" output
         buffer = new double[bufferSize][elementSize];
 
@@ -34,6 +34,7 @@ public class CircularBuffer implements Buffer{
             wait();
         }
         double [] values = buffer[readIndex];
+        readIndex = (readIndex + 1) % buffer.length;
         --occupiedCells;
         notifyAll();
         return values;

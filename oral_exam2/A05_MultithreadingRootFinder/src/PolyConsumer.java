@@ -1,18 +1,23 @@
 public class PolyConsumer implements Runnable{
 
-    private final double[] coefficients;
+
     private int processed;
-    public PolyConsumer(double [] coefficients) //replace this array with proper buffer object later
+    private final Buffer coefficients;
+    public PolyConsumer(Buffer coefficients) //replace this array with proper buffer object later
     {
         this.coefficients = coefficients;
     }
     @Override
     public void run() {
-
-        double real = -coefficients[1] / (2 * coefficients[0]);
-        double img = Math.sqrt(-(coefficients[1] * coefficients[1] - 4 * coefficients[0] * coefficients[2])) / ( 2 * coefficients[0]);
-
-
+        final double[] values;
+        try {
+            values = coefficients.blockGet();
+            double real = -values[1] / (2 * values[0]);
+            double img = Math.sqrt(-(values[1] * values[1] - 4 * values[0] * values[2])) / ( 2 * values[0]);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        processed+=1;
 
     }
 }
