@@ -83,7 +83,7 @@ public class TicTacToeClient extends JFrame implements Runnable
       {
          // make connection to server
          connection = new Socket(
-            InetAddress.getByName(ticTacToeHost), 12345);
+            InetAddress.getByName(ticTacToeHost), 23935);
 
          // get streams for input and output
          input = new Scanner(connection.getInputStream());

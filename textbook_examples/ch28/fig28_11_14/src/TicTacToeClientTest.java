@@ -10,7 +10,7 @@ public class TicTacToeClientTest
 
       // if no command line args
       if (args.length == 0)
-         application = new TicTacToeClient("127.0.0.1"); // localhost
+         application = new TicTacToeClient("128.255.17.169"); // localhost
       else
          application = new TicTacToeClient(args[0]); // use args
 
