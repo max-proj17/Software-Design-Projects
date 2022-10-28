@@ -20,10 +20,26 @@ public class PolyRootDriver {
 
         if(selection == 1)
         {
-            inputs = new CircularBuffer(30, 3);
-            outputs = new CircularBuffer(30, 3);
+            int numThreads = 10;
+            inputs = new CircularBuffer(10, 3, "Input Buffer");
+            outputs = new CircularBuffer(3000, 3, "Output Buffer");
             executorService.execute(new PolyProducer(inputs, outputs, 30));
             executorService.execute(new PolyConsumer(inputs, outputs));
+            executorService.execute(new PolyConsumer(inputs, outputs));
+            executorService.execute(new PolyConsumer(inputs, outputs));
+            executorService.execute(new PolyConsumer(inputs, outputs));
+            executorService.execute(new PolyConsumer(inputs, outputs));
+            executorService.execute(new PolyConsumer(inputs, outputs));
+            executorService.execute(new PolyConsumer(inputs, outputs));
+            executorService.execute(new PolyConsumer(inputs, outputs));
+            executorService.execute(new PolyConsumer(inputs, outputs));
+            executorService.execute(new PolyConsumer(inputs, outputs));
+//            while(numThreads!=1)
+//            {
+//                executorService.execute(new PolyConsumer(inputs, outputs));
+//                numThreads--;
+//            }
+
 
         } else if (selection == 2) {
 

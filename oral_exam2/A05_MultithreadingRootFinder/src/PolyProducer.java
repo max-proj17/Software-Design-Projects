@@ -17,16 +17,21 @@ public class PolyProducer implements Runnable {
     public void run() {
         Random rand = new Random();
         double rootArray [];
+        int numSet = 1;
         //randomly generate coefficients here and put into INPUT Circular buffer
         for(int i=0; i<numInputs; i++)
         {
             try
             {
-                System.out.println("Producing coefficients");
-                inputCoefficients.blockPut(new double []{rand.nextInt(2000) - 1000,
-                                                         rand.nextInt(2000) - 1000,
-                                                         rand.nextInt(2000) - 1000});
+
+                int c1 = rand.nextInt(2000) - 1000;
+                int c2 = rand.nextInt(2000) - 1000;
+                int c3 = rand.nextInt(2000) - 1000;
+
+                System.out.println("Producing coefficients set #" + numSet + " : " + c1 + " " + c2 + " " + c3);
+                inputCoefficients.blockPut(new double []{c1,c2,c3});
                 rootArray = outputRoots.blockGet();
+
                 if(rootArray[2] == 1) // 1 signifies 2 real distinct roots
                 {
                     System.out.println("2 real distinct roots: [root 1 = " + rootArray[0] + ", root 2 = " + rootArray[1] + "]");
@@ -43,6 +48,7 @@ public class PolyProducer implements Runnable {
             {
                 Thread.currentThread().interrupt();
             }
+            numSet++;
 
         }
         //put values in the input buffer if allowed
