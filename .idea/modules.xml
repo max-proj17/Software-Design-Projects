@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/A03_ExchangeComputationGUI/A03_ExchangeComputationGUI.iml" filepath="$PROJECT_DIR$/oral_exam1/A03_ExchangeComputationGUI/A03_ExchangeComputationGUI.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam2/A05_MultithreadingRootFinder/A05_MultithreadingRootFinder.iml" filepath="$PROJECT_DIR$/oral_exam2/A05_MultithreadingRootFinder/A05_MultithreadingRootFinder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oral_exam2/A06_MorseCode/A06_MorseCode.iml" filepath="$PROJECT_DIR$/oral_exam2/A06_MorseCode/A06_MorseCode.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch29/AddressBook/AddressBook.iml" filepath="$PROJECT_DIR$/textbook_examples/ch29/AddressBook/AddressBook.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/B01_ExchangeComputation/B01_ExchangeComputation.iml" filepath="$PROJECT_DIR$/oral_exam1/B01_ExchangeComputation/B01_ExchangeComputation.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/B11_Scoreboard/B11_Scoreboard.iml" filepath="$PROJECT_DIR$/oral_exam1/B11_Scoreboard/B11_Scoreboard.iml" />
@@ -539,6 +540,7 @@
       <module fileurl="file://$PROJECT_DIR$/textbook_examples/ch36/ExamplesShowingErrors/CircularDependency/src/module2/module2.iml" filepath="$PROJECT_DIR$/textbook_examples/ch36/ExamplesShowingErrors/CircularDependency/src/module2/module2.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam1/oral_exam1.iml" filepath="$PROJECT_DIR$/oral_exam1/oral_exam1.iml" />
       <module fileurl="file://$PROJECT_DIR$/oral_exam2/oral_exam2.iml" filepath="$PROJECT_DIR$/oral_exam2/oral_exam2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quizzes/quiz_20221103_javafx/quiz_20221103_javafx.iml" filepath="$PROJECT_DIR$/quizzes/quiz_20221103_javafx/quiz_20221103_javafx.iml" />
       <module fileurl="file://$PROJECT_DIR$/quizzes/quizzes.iml" filepath="$PROJECT_DIR$/quizzes/quizzes.iml" />
       <module fileurl="file://$PROJECT_DIR$/scratch/scratch.iml" filepath="$PROJECT_DIR$/scratch/scratch.iml" />
       <module fileurl="file://$PROJECT_DIR$/textbook_examples10thEdition/supplemental/supplemental.iml" filepath="$PROJECT_DIR$/textbook_examples10thEdition/supplemental/supplemental.iml" />

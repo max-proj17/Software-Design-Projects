@@ -5,11 +5,11 @@ public class CircularBuffer implements Buffer{
     private int readIndex = 0;
     private int writeIndex = 0;
     private final String bufferName;
-    public CircularBuffer(int bufferSize, int elementSize, String bufferName)
+    public CircularBuffer(int bufferSize, String bufferName)
     {
         //buffer size determines the rows of the buffer
         //element size determines the size of the input or output value (3 for 3 "tuple" input, 2 for 2 root "tuple" output
-        buffer = new double[bufferSize][elementSize];
+        buffer = new double[bufferSize][3];
         this.bufferName = bufferName;
 
     }
