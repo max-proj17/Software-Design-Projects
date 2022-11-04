@@ -15,8 +15,8 @@ import java.util.HashMap;
 
 public class Server extends JFrame 
 {
-   private JTextField enterField; // inputs message from user
-   private JTextArea displayArea; // display information to user
+   private final JTextField enterField; // inputs message from user
+   private final JTextArea displayArea; // display information to user
    private ObjectOutputStream output; // output stream to client
    private ObjectInputStream input; // input stream from client
    private ServerSocket server; // server socket
@@ -121,6 +121,9 @@ public class Server extends JFrame
          {
             message = (String) input.readObject(); // read new message
             displayMessage("\n" + message); // display message
+            message = message.substring(10);
+            String returnMsg = deriveMessage(message);
+            sendData(returnMsg);
          } 
          catch (ClassNotFoundException classNotFoundException) 
          {
@@ -192,47 +195,96 @@ public class Server extends JFrame
    }
    private String deriveMessage(String input)
    {
-      String returnStr = "";
-      if(input.charAt(0) == '.' || input.charAt(0) == '-')
+      if(input.charAt(0) != '-' || input.charAt(0) != '.')
       {
-         HashMap<String, String> morseToEnglish = new HashMap<>();
-         morseToEnglish.put(".-", "A"); morseToEnglish.put("-...", "B"); morseToEnglish.put("-.-.", "C");
-         morseToEnglish.put("-..", "D"); morseToEnglish.put(".", "E"); morseToEnglish.put("..-.", "F");
-         morseToEnglish.put("--.", "G"); morseToEnglish.put("....", "H"); morseToEnglish.put("..", "I");
-         morseToEnglish.put(".---", "J"); morseToEnglish.put("-.-", "K"); morseToEnglish.put(".-..", "L");
-         morseToEnglish.put("--", "M"); morseToEnglish.put("-.", "N"); morseToEnglish.put("---", "O");
-         morseToEnglish.put(".--.", "P"); morseToEnglish.put("--.-", "Q"); morseToEnglish.put(".-.", "R");
-         morseToEnglish.put("...", "S"); morseToEnglish.put("-", "T"); morseToEnglish.put("..-", "U");
-         morseToEnglish.put("...-", "V"); morseToEnglish.put(".--", "W"); morseToEnglish.put("-..-", "X");
-         morseToEnglish.put("-.--", "Y"); morseToEnglish.put("--..", "Z"); morseToEnglish.put(".----", "1");
-         morseToEnglish.put("..---", "2"); morseToEnglish.put("...--", "3"); morseToEnglish.put("....-", "4");
-         morseToEnglish.put(".....", "5"); morseToEnglish.put("-....", "6"); morseToEnglish.put("--...", "7");
-         morseToEnglish.put("---..", "8"); morseToEnglish.put("----.", "9"); morseToEnglish.put("-----", "9");
-         for(int i=0; i<input.length(); i++)
-         {
-
-         }
-
-      }else{
-         HashMap<String, String> englishToMorse = new HashMap<>();
+         return englishFromMorse(input);
+      }else
+      {
+         return morseFromEnglish(input);
       }
 
+   }
+   private String englishFromMorse(String input)
+   {
+      StringBuilder returnStr = new StringBuilder();
 
-      return returnStr;
+      HashMap<String, String> morseToEnglish = new HashMap<>();
+      morseToEnglish.put(".-", "A"); morseToEnglish.put("-...", "B"); morseToEnglish.put("-.-.", "C");
+      morseToEnglish.put("-..", "D"); morseToEnglish.put(".", "E"); morseToEnglish.put("..-.", "F");
+      morseToEnglish.put("--.", "G"); morseToEnglish.put("....", "H"); morseToEnglish.put("..", "I");
+      morseToEnglish.put(".---", "J"); morseToEnglish.put("-.-", "K"); morseToEnglish.put(".-..", "L");
+      morseToEnglish.put("--", "M"); morseToEnglish.put("-.", "N"); morseToEnglish.put("---", "O");
+      morseToEnglish.put(".--.", "P"); morseToEnglish.put("--.-", "Q"); morseToEnglish.put(".-.", "R");
+      morseToEnglish.put("...", "S"); morseToEnglish.put("-", "T"); morseToEnglish.put("..-", "U");
+      morseToEnglish.put("...-", "V"); morseToEnglish.put(".--", "W"); morseToEnglish.put("-..-", "X");
+      morseToEnglish.put("-.--", "Y"); morseToEnglish.put("--..", "Z"); morseToEnglish.put(".----", "1");
+      morseToEnglish.put("..---", "2"); morseToEnglish.put("...--", "3"); morseToEnglish.put("....-", "4");
+      morseToEnglish.put(".....", "5"); morseToEnglish.put("-....", "6"); morseToEnglish.put("--...", "7");
+      morseToEnglish.put("---..", "8"); morseToEnglish.put("----.", "9"); morseToEnglish.put("-----", "0");
+      String [] tokens = input.split(" ");
+      for(int i=0; i<tokens.length; i++)   //convert into sentence format
+      {
+         if(tokens[i].length() != 0)
+         {
+            if(morseToEnglish.get(tokens[i]) != null)
+            {
+               returnStr.append(morseToEnglish.get(tokens[i]));
+            }else
+            {
+               returnStr.append("?");
+            }
+
+         }else if(tokens[i].length() == 0 && tokens[i + 1].length() == 0)
+         {
+            returnStr.append(" ");
+            i++;
+         }
+      }
+
+      return returnStr.toString();
+   }
+   private String morseFromEnglish(String input)
+   {
+      StringBuilder returnStr = new StringBuilder();
+
+      HashMap<String, String> englishToMorse = new HashMap<>();
+      englishToMorse.put("A", ".-"); englishToMorse.put("B","-..."); englishToMorse.put("C","-.-.");
+      englishToMorse.put("D","-.."); englishToMorse.put("E","."); englishToMorse.put("F","..-.");
+      englishToMorse.put("G","--."); englishToMorse.put("H","...."); englishToMorse.put("I","..");
+      englishToMorse.put("J",".---"); englishToMorse.put("K","-.-"); englishToMorse.put("L",".-..");
+      englishToMorse.put("M", "--"); englishToMorse.put("N","-."); englishToMorse.put("O","---");
+      englishToMorse.put("P", ".--."); englishToMorse.put("Q","--.-"); englishToMorse.put("R",".-.");
+      englishToMorse.put("S","..."); englishToMorse.put("T","-"); englishToMorse.put("U","..-");
+      englishToMorse.put("V","...-"); englishToMorse.put("W",".--"); englishToMorse.put("X", "-..-");
+      englishToMorse.put("Y","-.--"); englishToMorse.put("Z","--.."); englishToMorse.put("1",".----");
+      englishToMorse.put("2","..---"); englishToMorse.put("3","...--"); englishToMorse.put("4", "....-");
+      englishToMorse.put("5","....."); englishToMorse.put("6","-...."); englishToMorse.put("7", "--...");
+      englishToMorse.put("8","---.."); englishToMorse.put("9","----."); englishToMorse.put("0", "-----");
+      char[] tokens = input.toCharArray();
+
+      //convert into sentence format
+      for (char token : tokens) {
+         if (token != ' ') {
+            String singleChar = Character.toString(token).toUpperCase();
+            System.out.println(singleChar);
+            if (englishToMorse.get(singleChar) != null) {
+               returnStr.append(englishToMorse.get(singleChar));
+               returnStr.append(" ");
+            } else {
+               returnStr.append("?");
+            }
+
+         } else {
+            returnStr.append("   ");
+
+         }
+      }
+
+      return returnStr.toString();
+
    }
 } 
 
-/**************************************************************************
- * (C) Copyright 1992-2018 by Deitel & Associates, Inc. and               *
- * Pearson Education, Inc. All Rights Reserved.                           *
- *                                                                        *
- * DISCLAIMER: The authors and publisher of this book have used their     *
- * best efforts in preparing the book. These efforts include the          *
- * development, research, and testing of the theories and programs        *
- * to determine their effectiveness. The authors and publisher make       *
- * no warranty of any kind, expressed or implied, with regard to these    *
- * programs or to the documentation contained in these books. The authors *
- * and publisher shall not be liable in any event for incidental or       *
- * consequential damages in connection with, or arising out of, the       *
- * furnishing, performance, or use of these programs.                     *
- *************************************************************************/
+
+//(C) Copyright 1992-2018 by Deitel & Associates, Inc. and
+// Pearson Education, Inc. All Rights Reserved.
