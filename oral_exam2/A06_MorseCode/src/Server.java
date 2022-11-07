@@ -1,5 +1,6 @@
 // Fig. 28.3: Server.java
-// Server portion of a client/server stream-socket connection. 
+//(C) Copyright 1992-2018 by Deitel & Associates, Inc. and
+// Pearson Education, Inc. All Rights Reserved.
 
 import javax.swing.*;
 import java.awt.*;
@@ -108,7 +109,7 @@ public class Server extends JFrame
    // process connection with client
    private void processConnection() throws IOException
    {
-      String message = "Connection successful. Please send me a message in English or Morse code. " +
+      String message = "Connection successful. Please send me a message in English or Morse code. \n" +
               "Type \"CLIENT>>> TERMINATE\" to terminate our connection.";
       sendData(message); // send connection successful message
 
@@ -195,11 +196,13 @@ public class Server extends JFrame
    }
    private String deriveMessage(String input)
    {
-      if(input.charAt(0) != '-' || input.charAt(0) != '.')
+      if(input.charAt(0) == '-' || input.charAt(0) == '.')
       {
+         displayMessage("\nMorse to English");
          return englishFromMorse(input);
       }else
       {
+         displayMessage("\nEnglish to Morse");
          return morseFromEnglish(input);
       }
 
@@ -286,5 +289,4 @@ public class Server extends JFrame
 } 
 
 
-//(C) Copyright 1992-2018 by Deitel & Associates, Inc. and
-// Pearson Education, Inc. All Rights Reserved.
+

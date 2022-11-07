@@ -1,5 +1,6 @@
 // Fig. 28.5: Client.java
-// Client portion of a stream-socket connection between client and server.
+//(C) Copyright 1992-2018 by Deitel & Associates, Inc. and
+// Pearson Education, Inc. All Rights Reserved.
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,12 +15,12 @@ import java.net.Socket;
 
 public class Client extends JFrame 
 {
-   private JTextField enterField; // enters information from user
-   private JTextArea displayArea; // display information to user
+   private final JTextField enterField; // enters information from user
+   private final JTextArea displayArea; // display information to user
    private ObjectOutputStream output; // output stream to server
    private ObjectInputStream input; // input stream from server
    private String message = ""; // message from server
-   private String chatServer; // host server for this application
+   private final String chatServer; // host server for this application
    private Socket client; // socket to communicate with server
 
    // initialize chatServer and set up GUI
@@ -182,19 +183,7 @@ public class Client extends JFrame
          } 
       ); 
    } 
-} 
+}
 
-/**************************************************************************
- * (C) Copyright 1992-2018 by Deitel & Associates, Inc. and               *
- * Pearson Education, Inc. All Rights Reserved.                           *
- *                                                                        *
- * DISCLAIMER: The authors and publisher of this book have used their     *
- * best efforts in preparing the book. These efforts include the          *
- * development, research, and testing of the theories and programs        *
- * to determine their effectiveness. The authors and publisher make       *
- * no warranty of any kind, expressed or implied, with regard to these    *
- * programs or to the documentation contained in these books. The authors *
- * and publisher shall not be liable in any event for incidental or       *
- * consequential damages in connection with, or arising out of, the       *
- * furnishing, performance, or use of these programs.                     *
- *************************************************************************/
+
+
