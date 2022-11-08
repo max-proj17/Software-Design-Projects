@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="318.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TipQuiz">
+<AnchorPane prefHeight="318.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TipCalculatorController">
    <children>
       <GridPane alignment="CENTER" hgap="10.0" prefHeight="400.0" prefWidth="365.0">
         <columnConstraints>
@@ -33,7 +32,7 @@
             <TextField fx:id="tipTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="totalTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Slider fx:id="tipPercentageSlider" max="30.0" value="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" text="Calculate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button mnemonicParsing="false" onAction="#calculateButtonPressed" text="Calculate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

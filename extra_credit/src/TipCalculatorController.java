@@ -50,7 +50,7 @@ public class TipCalculatorController {
         }
     }
 
-    public void intialize()
+    public void initialize()
     {
         currency.setRoundingMode(RoundingMode.HALF_UP);
 
@@ -68,7 +68,6 @@ public class TipCalculatorController {
 
         );
     }
-
 
 
 }
