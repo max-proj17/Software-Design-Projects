@@ -11,13 +11,12 @@ public abstract class Encryptor {
 
         Random rand = new Random();
         int [] key = new int[msgLength];
-        int key_pos = 0;
         int randomNum;
 
         for(int i=0; i<msgLength; i++)
         {
             randomNum = rand.nextInt(26);
-            key[key_pos] = randomNum;
+            key[i] = randomNum;
         }
         return key;
 
@@ -30,7 +29,8 @@ public abstract class Encryptor {
         int character_index;
         for(char c: letters)
         {
-            character_index = asciiBinarySearch(c, 25, 0);
+
+            character_index = asciiBinarySearch(Character.toUpperCase(c), 25, 0);
 
             if(character_index == -1)
             {
