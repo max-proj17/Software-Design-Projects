@@ -119,7 +119,7 @@ public class Decryptor {
         return returnStr;
     }
     public static void main(String [] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
+
         String keyPath;
         String encryptedPath;
         System.out.print("Enter location of key file: ");
