@@ -8,10 +8,10 @@ public class EncryptorDriver {
     {
         System.out.println("Give me a message to encrypt");
         String message = inputValidation();
-        int [] key = Encryptor.generateNValues(message.length());
+        //int [] key = Encryptor.generateNValues(message.length());
         System.out.println(message);
-        System.out.println(Arrays.toString(key));
-        System.out.println(Encryptor.cypheredMessage(message, key));
+        //System.out.println(Arrays.toString(key));
+        //System.out.println(Encryptor.cypheredMessage(message, key));
         //get message
         //get key
         //generate script with key

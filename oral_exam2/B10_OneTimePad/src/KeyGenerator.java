@@ -9,8 +9,9 @@ public class KeyGenerator {
 
     public static void generateNValues(int msgLength) throws IOException {
         File nValues = new File("oral_exam2/B10_OneTimePad/Files/n_values.txt");
+        Random rand = new Random();
+        int randomNum;
 
-        System.out.println(nValues.getAbsolutePath());
         if(nValues.exists())
         {
             System.out.println("File already exists");
@@ -25,12 +26,11 @@ public class KeyGenerator {
             }
         }
         FileWriter fileWriter = new FileWriter(nValues, false);
-        fileWriter.write("5\n");
+        randomNum = rand.nextInt(msgLength)+1;
+        fileWriter.write(randomNum + "\n");
 
 
 
-        Random rand = new Random();
-        int randomNum;
 
         for(int i=0; i<msgLength; i++)
         {
