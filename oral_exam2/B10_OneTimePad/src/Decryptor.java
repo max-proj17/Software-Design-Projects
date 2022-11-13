@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.Scanner;
+
 public class Decryptor {
 
 
@@ -16,12 +19,34 @@ public class Decryptor {
         }
         return values;
     }
-    public static String decrypt(String message, int [] n_values)
-    {
+    public static String decrypt(String keyPath, String encryptPath) throws IOException {
+        //Read in keyPath file then encryptPath file
+        BufferedReader in_key = null;
+        BufferedReader in_encrypt = null;
+        try
+        {
+            in_key = new BufferedReader(new FileReader(keyPath));
+            in_encrypt = new BufferedReader(new FileReader(encryptPath));
+        }catch (FileNotFoundException fe)
+        {
+            System.out.println("File not found");
+        }
+
+        //get N values only
+        assert in_key != null;
+        in_key.readLine();
+        String readValues = in_key.readLine();
+        int [] n_values = deriveKey(readValues);
+
+        //get message and key position
+        assert in_encrypt != null;
+        int key_pos = Integer.parseInt(in_encrypt.readLine());
+        String message = in_encrypt.readLine();
+
+
 
         char [] letters = message.toCharArray();
         StringBuilder returnStr = new StringBuilder();
-        int key_pos = 0;
         int character_index;
         for(char c: letters)
         {
@@ -36,10 +61,11 @@ public class Decryptor {
                 character_index = (character_index + n_values[key_pos]) % alphabet.length;
                 returnStr.append(alphabet[character_index]);
             }
-            key_pos++;
+            key_pos = (key_pos + 1) % n_values.length;
 
         }
         return returnStr.toString();
+
     }
     private static int asciiBinarySearch(char c, int higher, int lower)
     {
@@ -63,5 +89,44 @@ public class Decryptor {
                 return asciiBinarySearch(c, middle - 1, lower);
             }
         }
+    }
+    public static String pathValidation()
+    {
+        final Scanner sc = new Scanner(System.in);
+        boolean valid = false;
+        String returnStr = "";
+
+        do {
+            try {
+                returnStr = sc.nextLine();
+                File path = new File(returnStr);
+
+                if(!path.exists())
+                {
+                    throw new Exception("Invalid PATH");
+                }else
+                {
+                    valid = true;
+                }
+
+            }catch (Exception e)
+            {
+                System.out.println("Invalid PATH");
+                sc.nextLine();
+
+            }
+        }while(!valid);
+        return returnStr;
+    }
+    public static void main(String [] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        String keyPath;
+        String encryptedPath;
+        System.out.print("Enter location of key file: ");
+        keyPath = pathValidation();
+        System.out.print("\nEnter location of encrypted file: ");
+        encryptedPath = pathValidation();
+        String message = decrypt(keyPath, encryptedPath);
+        System.out.println("Decrypted message: " + message);
     }
 }
