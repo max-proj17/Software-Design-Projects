@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class Decryptor {
+public abstract class Decryptor {
 
 
     final static char[] alphabet = {'Z', 'Y', 'X', 'W', 'V', 'U', 'T', 'S', 'R', 'Q', 'P', 'O', 'N',
