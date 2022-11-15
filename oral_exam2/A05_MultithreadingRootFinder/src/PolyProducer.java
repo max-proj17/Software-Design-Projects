@@ -73,8 +73,8 @@ public class PolyProducer {
 
             int numThreads = 10;
             CircularBuffer.setNumToSolve(30);
-            inputs = new CircularBuffer(10,"Input Buffer");
-            outputs = new CircularBuffer(30,"Output Buffer");
+            inputs = new CircularBuffer(5,"Input Buffer");
+            outputs = new CircularBuffer(5,"Output Buffer");
             PolyProducer polyproducer = new PolyProducer(inputs, outputs, 30);
             while(numThreads!=0)
             {
