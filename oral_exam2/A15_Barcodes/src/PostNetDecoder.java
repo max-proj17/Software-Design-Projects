@@ -1,5 +1,6 @@
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 public abstract class PostNetDecoder {
 
@@ -14,11 +15,47 @@ public abstract class PostNetDecoder {
 
 
     }
-    public static String decode(String input)
+    private static String inputValidation()
+    {
+        final Scanner sc = new Scanner(System.in);
+        boolean valid = false;
+
+        String [] values;
+
+
+        String returnStr = "";
+
+        do {
+            try {
+                returnStr = sc.nextLine();
+                values = returnStr.split(" ");
+                System.out.println(values.length);
+
+                if(returnStr.charAt(0) != 1 && returnStr.charAt(returnStr.length()-1)!='1')
+                {
+                    throw new Exception("Invalid Zip Code : no frame bar provided");
+                }else if (values.length == 8 || values.length == 12 || values.length == 14)
+                {
+                    valid = true;
+
+                } else
+                {
+                    throw new Exception("Invalid Zip Code : not enough binary digits");
+                }
+            }catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+                sc.nextLine();
+            }
+        }while(!valid);
+        return returnStr;
+
+    }
+    public static String decode()
     {
         setup();
         // Make array of the regex of only numbers
-        String [] nums = input.split(" ");
+        String [] nums = inputValidation().split(" ");
 
         // Take off dividers and the checksum
         // Go through each String in array and grab numerical value from hashmap

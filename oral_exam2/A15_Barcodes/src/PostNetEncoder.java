@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public abstract class PostNetEncoder {
 
@@ -42,9 +43,49 @@ public abstract class PostNetEncoder {
         }
         return returnStr.toString();
     }
-    public static String encode(String zip)
+    private static String inputValidation()
     {
+        final Scanner sc = new Scanner(System.in);
+        boolean valid = false;
+
+        String [] values;
+
+
+        String returnStr = "";
+
+        do {
+            try {
+                returnStr = sc.nextLine();
+                values = returnStr.split("-");
+
+
+                if(values.length==3 && values[0].length() == 5 && values[1].length() == 4 && values[2].length() == 2)
+                {
+                    valid = true;
+                }else if(values.length==2 && values[0].length() == 5 && values[1].length() == 4)
+                {
+                    valid = true;
+                }else if(values.length==1 && values[0].length() == 5)
+                {
+                    valid = true;
+                }else
+                {
+                    throw new Exception("Invalid Zip Code : not in correct format");
+                }
+            }catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+                sc.nextLine();
+            }
+        }while(!valid);
+        return returnStr;
+
+    }
+    public static String encode()
+    {
+        //Input validation
         setup();
+        String zip = inputValidation();
         //First extract numbers from string
         int beforeCheckSum = 0;
         int [] integer_nums = new int [15];
@@ -64,7 +105,6 @@ public abstract class PostNetEncoder {
         //Second, compute the checksum
         integer_nums[position] = checkSum(beforeCheckSum);
         amt_in_nums++;
-        System.out.println(Arrays.toString(integer_nums));
         //Third, return string of closing full height frame bars, and all binary of the numbers
         //also have a separate line with purely binary
         return returnStringCreator(integer_nums, amt_in_nums);
