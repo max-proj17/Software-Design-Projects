@@ -1,9 +1,10 @@
-
 import java.util.Random;
+import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
-public class PolyProducer implements Runnable {
-
-
+public class PolyProducer {
     private final Buffer inputCoefficients;
     private final Buffer outputRoots;
     private final int numInputs;
@@ -13,10 +14,9 @@ public class PolyProducer implements Runnable {
         this.outputRoots = outputRoots;
         this.numInputs = numInputs;
     }
-    @Override
     public void run() {
         Random rand = new Random();
-        double rootArray [] = new double[3];
+        double[] rootArray = new double[3];
         int numSet = 1;
         int c1;
         int c2;
@@ -54,5 +54,73 @@ public class PolyProducer implements Runnable {
         //put values in the input buffer if allowed
         //Read them out in the order they arrive
 
+    }
+
+    public static void main(String [] args) throws InterruptedException
+    {
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+
+
+        System.out.println("Select either\n1: Generate and solve 30 sets of randomly generated coefficients");
+        System.out.println("2: Generate and solve 3000 sets of randomly generated coefficients");
+        int selection = inputValidation();
+        Buffer inputs;
+        Buffer outputs;
+
+        if(selection == 1)
+        {
+
+            int numThreads = 10;
+            CircularBuffer.setNumToSolve(30);
+            inputs = new CircularBuffer(10,"Input Buffer");
+            outputs = new CircularBuffer(30,"Output Buffer");
+            PolyProducer polyproducer = new PolyProducer(inputs, outputs, 30);
+            while(numThreads!=0)
+            {
+                executorService.execute(new PolyConsumer(inputs, outputs));
+                numThreads--;
+            }
+
+            polyproducer.run();
+
+
+        } else if (selection == 2) {
+
+        }
+
+        executorService.shutdown();
+        executorService.awaitTermination(1, TimeUnit.MINUTES);
+
+
+        //Buffer inputs = new CircularBuffer();
+    }
+    public static int inputValidation()
+    {
+        final Scanner sc = new Scanner(System.in);
+        boolean valid = false;
+        int selection = 0;
+        do {
+            try {
+                if (sc.hasNextInt()) {
+                    selection = Integer.parseInt(sc.nextLine());
+                    if(selection == 1 || selection == 2)
+                    {
+                        valid = true;
+                    }else {
+                        throw new Exception("Invalid Input");
+                    }
+                } else {
+                    throw new Exception("Invalid Input");
+                }
+            }catch (Exception e)
+            {
+                System.out.println("Invalid Input");
+                sc.nextLine();
+
+            }
+        }while(!valid);
+
+        return selection;
     }
 }
