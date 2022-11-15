@@ -1,6 +1,7 @@
+
 import java.util.HashMap;
 
-public class PostNetDecoder {
+public abstract class PostNetDecoder {
 
     final static HashMap<String, Integer> binary_equiv = new HashMap<>();
 
@@ -15,11 +16,25 @@ public class PostNetDecoder {
     }
     public static String decode(String input)
     {
+        setup();
         // Make array of the regex of only numbers
+        String [] nums = input.split(" ");
+
         // Take off dividers and the checksum
         // Go through each String in array and grab numerical value from hashmap
-        // - once 6 digits are used add a -, check the rule for the DPC bc IDK
+        // - once 6 digits are used or DPC is used add a " - "
+        StringBuilder binary_rep = new StringBuilder();
+        for(int i=1; i<nums.length-2; i++)
+        {
+
+            if((i == 6 || i == 10))
+            {
+                binary_rep.append("-");
+            }
+            binary_rep.append(binary_equiv.get(nums[i]));
+        }
+
         // - return the String when built
-        return "";
+        return binary_rep.toString();
     }
 }
