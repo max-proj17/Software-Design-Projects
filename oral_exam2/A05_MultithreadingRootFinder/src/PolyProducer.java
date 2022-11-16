@@ -5,16 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class PolyProducer {
-    private final Buffer inputCoefficients;
-    private final Buffer outputRoots;
-    private final int numInputs;
-    public PolyProducer(Buffer inputCoefficients, Buffer outputRoots, int numInputs) //replace this array with proper buffer object later
-    {
-        this.inputCoefficients = inputCoefficients;
-        this.outputRoots = outputRoots;
-        this.numInputs = numInputs;
-    }
-    public void run() {
+
+    public static void run(Buffer inputCoefficients, Buffer outputRoots, int numInputs) {
         Random rand = new Random();
         double[] rootArray = new double[3];
         int numSet = 1;
@@ -75,14 +67,13 @@ public class PolyProducer {
             CircularBuffer.setNumToSolve(30);
             inputs = new CircularBuffer(5,"Input Buffer");
             outputs = new CircularBuffer(5,"Output Buffer");
-            PolyProducer polyproducer = new PolyProducer(inputs, outputs, 30);
             while(numThreads!=0)
             {
                 executorService.execute(new PolyConsumer(inputs, outputs));
                 numThreads--;
             }
 
-            polyproducer.run();
+            run(inputs, outputs, 30);
 
 
         } else if (selection == 2) {

@@ -6,7 +6,7 @@ public abstract class PostNetDecoder {
 
     final static HashMap<String, Integer> binary_equiv = new HashMap<>();
 
-    private static void setup()
+    public static void setup()
     {
         binary_equiv.put("11000", 0); binary_equiv.put("00011", 1); binary_equiv.put("00101", 2);
         binary_equiv.put("00110", 3); binary_equiv.put("01001", 4); binary_equiv.put("01010", 5);
@@ -51,13 +51,9 @@ public abstract class PostNetDecoder {
         return returnStr;
 
     }
-    public static String decode()
+    public static String decode(String [] nums)
     {
-        setup();
-        // Make array of the regex of only numbers
-        String [] nums = inputValidation().split(" ");
 
-        // Take off dividers and the checksum
         // Go through each String in array and grab numerical value from hashmap
         // - once 6 digits are used or DPC is used add a " - "
         StringBuilder binary_rep = new StringBuilder();
@@ -73,5 +69,11 @@ public abstract class PostNetDecoder {
 
         // - return the String when built
         return binary_rep.toString();
+    }
+    public static String process()
+    {
+        setup();
+        // Make array of the regex of only numbers
+        return decode(inputValidation().split(" "));
     }
 }

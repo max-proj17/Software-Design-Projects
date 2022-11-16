@@ -6,7 +6,7 @@ public abstract class PostNetEncoder {
 
     final static HashMap<Integer, String>  binary_equiv = new HashMap<>();
 
-    private static void setup()
+    public static void setup()
     {
         binary_equiv.put(0, "11000"); binary_equiv.put(1, "00011"); binary_equiv.put(2, "00101");
         binary_equiv.put(3, "00110"); binary_equiv.put(4, "01001"); binary_equiv.put(5, "01010");
@@ -15,14 +15,15 @@ public abstract class PostNetEncoder {
 
 
     }
-    private static int checkSum(int start) {return 10- (start % 10);}
-    private static String returnStringCreator (int [] nums, int length)
+    public static int checkSum(int start) {return 10- (start % 10);}
+    public static String returnStringCreator (int [] nums, int length)
     {
         StringBuilder returnStr = new StringBuilder();
         returnStr.append("1 ");
         int j = 0;
         while(length != 0)
         {
+
             returnStr.append(binary_equiv.get(nums[j])).append(" ");
             length--;
             j++;

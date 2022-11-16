@@ -6,6 +6,6 @@ public class DRIVERPostNetDecoder {
     {
 
         System.out.println("Enter a binary representation of a zip code to decode");
-        System.out.println(PostNetDecoder.decode());
+        System.out.println(PostNetDecoder.process());
     }
 }
