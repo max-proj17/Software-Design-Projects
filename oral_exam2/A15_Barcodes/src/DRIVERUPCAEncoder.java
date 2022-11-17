@@ -2,10 +2,9 @@ public class DRIVERUPCAEncoder {
 
     public static void main(String [] args)
     {
-        System.out.println(UPCAEncoder.encode("01254667375"));
+        System.out.println("Enter a UPC-A product code to encode:");
+        System.out.println(UPCAEncoder.encode(UPCAEncoder.inputValidation()));
+
     }
 }
 
-//1010001 1010011 0010010 0110110 0010100 0110101 1110101 0101000 0100010 0100001 0100010 0100111 01011100101
-
-//1010001101001100100100110110001010001101011110101010100001000100100001010001001001110 1011100 101

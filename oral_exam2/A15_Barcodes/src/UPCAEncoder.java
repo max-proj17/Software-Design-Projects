@@ -1,6 +1,7 @@
 import java.util.HashMap;
+import java.util.Scanner;
 
-public class UPCAEncoder {
+public abstract class UPCAEncoder {
 
     //Use hashmap to get String equivalent. 101 + (6)w-b-w-b + 01010 + (6)b-w-b-w + 101
     final static HashMap<Integer, String> upc_w_b = new HashMap<>();
@@ -52,7 +53,36 @@ public class UPCAEncoder {
     }
     public static String inputValidation()
     {
-        return "";
+        final Scanner sc = new Scanner(System.in);
+        boolean valid = false;
+
+
+
+        String returnStr = "";
+
+        do {
+            try {
+                returnStr = sc.nextLine();
+                if(returnStr.length()!=11)
+                {
+                    throw new Exception("Invalid UPC-A Code : not correct amount of digits");
+                }
+                for(int i=0; i<returnStr.length(); i++)
+                {
+                    if(!Character.isDigit(returnStr.charAt(i)))
+                    {
+                        throw new Exception("Invalid UPC-A Code : at least one character isn't a digit");
+                    }
+                }
+                valid = true;
+
+            }catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+                sc.nextLine();
+            }
+        }while(!valid);
+        return returnStr;
     }
 
 

@@ -1,6 +1,7 @@
 import java.util.HashMap;
+import java.util.Scanner;
 
-public class UPCADecoder {
+public abstract class UPCADecoder {
     //User input check
     //For now just require input to be spaced. We can change later.
     //Loop through input without 101's and middle and get integer.
@@ -26,10 +27,6 @@ public class UPCADecoder {
 
         //sliding window
         int i;
-        //i 0,1,2 is "101"
-        //i 3-50 is 7 digit code
-        //i 46-27 is middle
-        //i 28-
         for(i=3; i<=38; i+=7)
         {
           returnStr.append(upc_w_b.get(input.substring(i, i+7)));
@@ -47,7 +44,36 @@ public class UPCADecoder {
 
     public static String inputValidation()
     {
-        return "";
+        final Scanner sc = new Scanner(System.in);
+        boolean valid = false;
+
+
+        String returnStr = "";
+
+        do {
+            try {
+                returnStr = sc.nextLine();
+                if(returnStr.length()!=95)
+                {
+                    throw new Exception("Invalid UPC-A Barcode : not correct amount of digits");
+                }
+
+                for(int i=0; i<returnStr.length(); i++)
+                {
+                    if(!Character.isDigit(returnStr.charAt(i)) && !(returnStr.charAt(i)== '1' || returnStr.charAt(i) == '0'))
+                    {
+                        throw new Exception("Invalid UPC-A Barcode : at least one character isn't a digit of 1 or 0");
+                    }
+                }
+                valid = true;
+
+            }catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+                sc.nextLine();
+            }
+        }while(!valid);
+        return returnStr;
     }
 
 
