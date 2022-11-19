@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -10,5 +11,7 @@
       <RadioButton fx:id="democrat" layoutX="341.0" layoutY="115.0" mnemonicParsing="false" text="Democrat" />
       <RadioButton fx:id="republican" layoutX="341.0" layoutY="161.0" mnemonicParsing="false" text="Republican" />
       <RadioButton fx:id="undecided" layoutX="341.0" layoutY="206.0" mnemonicParsing="false" text="Undecided" />
+      <Label fx:id="democratLabel" layoutX="103.0" layoutY="65.0" text="Democrat Votes:" />
+      <Label fx:id="republicanLabel" layoutX="341.0" layoutY="65.0" text="Republican Votes:" />
    </children>
 </AnchorPane>
