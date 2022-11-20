@@ -29,9 +29,7 @@
                </font>
             </Label>
             <ImageView fitHeight="189.0" fitWidth="563.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../../../nfs/s-l011/local/vol02/m/mfinch1/Desktop/mfinch1_swd/quizzes/quiz_20221103_javafx/src/bug.png" />
-               </image>
+               <Image url="@../../../../../../../../../nfs/s-l011/local/vol02/m/mfinch1/Desktop/mfinch1_swd/quizzes/quiz_20221103_javafx/src/bug.png"/>
             </ImageView>
          </children>
       </VBox>

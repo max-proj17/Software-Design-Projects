@@ -6,6 +6,8 @@ import javafx.scene.chart.PieChart;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.HashMap;
 
@@ -33,7 +35,8 @@ public class ElectoralCollegeController {
     @FXML
     private RadioButton republican;
     private final ToggleGroup options = new ToggleGroup();
-
+    @FXML
+    private ImageView us;
     @FXML
     private RadioButton undecided;
     private int democrat_score = 0;
@@ -42,6 +45,9 @@ public class ElectoralCollegeController {
 
     public void initialize()
     {
+
+        us = new ImageView();
+        //us.setImage(new Image("US-Map.jpg"));
 
         ObservableList<PieChart.Data> pie_chart_data = FXCollections.observableArrayList(
                  new PieChart.Data("Democrat", 0),
