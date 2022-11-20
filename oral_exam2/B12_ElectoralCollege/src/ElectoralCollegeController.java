@@ -1,7 +1,10 @@
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 
 import java.util.HashMap;
@@ -18,21 +21,39 @@ public class ElectoralCollegeController {
     private Label democratLabel;
     @FXML
     private Label republicanLabel;
+    @FXML
+    private Label winner;
+    @FXML
+    private PieChart piechart;
+
 
     @FXML
     private RadioButton democrat;
 
     @FXML
     private RadioButton republican;
-    private ToggleGroup options = new ToggleGroup();
+    private final ToggleGroup options = new ToggleGroup();
 
     @FXML
     private RadioButton undecided;
     private int democrat_score = 0;
     private int republican_score = 0;
+    private int undecided_score = 0;
 
     public void initialize()
     {
+
+        ObservableList<PieChart.Data> pie_chart_data = FXCollections.observableArrayList();
+        javafx.scene.chart.PieChart.Data pc_democrat = new javafx.scene.chart.PieChart.Data("Democrat", 0);
+        javafx.scene.chart.PieChart.Data pc_republican = new javafx.scene.chart.PieChart.Data("Republican", 0);
+        javafx.scene.chart.PieChart.Data pc_undecided = new javafx.scene.chart.PieChart.Data("Undecided", 538);
+        pie_chart_data.add(pc_democrat);
+        pie_chart_data.add(pc_republican);
+        pie_chart_data.add(pc_undecided);
+        piechart = new PieChart(pie_chart_data);
+        piechart.setTitle("Vote Distribution");
+        piechart.setVisible(true);
+
         final String[] states_list;
         states_list = new String[]{"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
                 "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
@@ -56,63 +77,72 @@ public class ElectoralCollegeController {
         }
         democratLabel.setText("Democrat Votes: " + democrat_score);
         republicanLabel.setText("Republican Votes: " + republican_score);
+        winner.setText("Winner: ");
         states.setOnAction(e -> {});
         democrat.setToggleGroup(options);
         republican.setToggleGroup(options);
         undecided.setToggleGroup(options);
-        options.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+        options.selectedToggleProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
                 RadioButton rb = (RadioButton) options.getSelectedToggle();
-                if(rb != null)
-                {
+                if (rb != null) {
 
                     String selected = rb.getText();
                     String state = states.getValue();
                     System.out.println(state);
                     System.out.println(selected);
                     //If democrat is selected, democrats don't have it and republicans have it
-                    if(selected.equals("Democrat") && !democrat_votes.get(state) && republican_votes.get(state))
-                    {
+                    if (selected.equals("Democrat") && !democrat_votes.get(state) && republican_votes.get(state)) {
                         System.out.println("Vote for democrat");
-                        democrat_score+=vote_amount.get(state);
-                        republican_score-=vote_amount.get(state);
+                        democrat_score += vote_amount.get(state);
+                        republican_score -= vote_amount.get(state);
                         republican_votes.put(state, false);
                         democrat_votes.put(state, true);
 
-                    }else if(selected.equals("Democrat") && !democrat_votes.get(state) && !republican_votes.get(state))
-                    {
+                    } else if (selected.equals("Democrat") && !democrat_votes.get(state) && !republican_votes.get(state)) {
                         System.out.println("Vote for democrat");
-                        democrat_score+=vote_amount.get(state);
+                        democrat_score += vote_amount.get(state);
                         democrat_votes.put(state, true);
 
-                    }else if(selected.equals("Republican") && !republican_votes.get(state) && democrat_votes.get(state))
-                    {
+                    } else if (selected.equals("Republican") && !republican_votes.get(state) && democrat_votes.get(state)) {
                         System.out.println("Vote for republican");
-                        democrat_score-=vote_amount.get(state);
-                        republican_score+=vote_amount.get(state);
+                        democrat_score -= vote_amount.get(state);
+                        republican_score += vote_amount.get(state);
                         republican_votes.put(state, true);
                         democrat_votes.put(state, false);
 
-                    }else if(selected.equals("Republican") && !republican_votes.get(state) && !democrat_votes.get(state))
-                    {
+                    } else if (selected.equals("Republican") && !republican_votes.get(state) && !democrat_votes.get(state)) {
                         System.out.println("Vote for republican");
-                        republican_score+=vote_amount.get(state);
+                        republican_score += vote_amount.get(state);
                         republican_votes.put(state, true);
-                    }else if(selected.equals("Undecided"))
-                    {
-                        if(democrat_votes.get(state))
-                        {
+                    } else if (selected.equals("Undecided")) {
+                        if (democrat_votes.get(state)) {
                             democrat_votes.put(state, false);
-                            democrat_score-=vote_amount.get(state);
-                        }else if(republican_votes.get(state))
-                        {
+                            democrat_score -= vote_amount.get(state);
+                        } else if (republican_votes.get(state)) {
                             republican_votes.put(state, false);
-                            republican_score-=vote_amount.get(state);
+                            republican_score -= vote_amount.get(state);
                         }
                     }
                     democratLabel.setText("Democrat Votes: " + democrat_score);
                     republicanLabel.setText("Republican Votes: " + republican_score);
+                    undecided_score = 538 - (democrat_score + republican_score);
+
+                    //set pie values
+                    pc_democrat.setPieValue(democrat_score);
+                    pc_republican.setPieValue(republican_score);
+                    pc_undecided.setPieValue(undecided_score);
+
+
+                    //See if there is a winner
+                    if ((democrat_score > republican_score) && democrat_score > 270) {
+                        winner.setText("Winner: Democrats");
+                    } else if ((democrat_score < republican_score) && republican_score > 270) {
+                        winner.setText("Winner: Republicans");
+                    } else {
+                        winner.setText("Winner: ");
+                    }
 
                 }
             }

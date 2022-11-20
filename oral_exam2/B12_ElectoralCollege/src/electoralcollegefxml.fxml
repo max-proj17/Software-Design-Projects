@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ElectoralCollegeController">
+<AnchorPane prefHeight="740.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ElectoralCollegeController">
    <children>
       <ComboBox fx:id="states" layoutX="103.0" layoutY="157.0" prefWidth="150.0" />
       <RadioButton fx:id="democrat" layoutX="341.0" layoutY="115.0" mnemonicParsing="false" text="Democrat" />
       <RadioButton fx:id="republican" layoutX="341.0" layoutY="161.0" mnemonicParsing="false" text="Republican" />
       <RadioButton fx:id="undecided" layoutX="341.0" layoutY="206.0" mnemonicParsing="false" text="Undecided" />
-      <Label fx:id="democratLabel" layoutX="103.0" layoutY="65.0" text="Democrat Votes:" />
-      <Label fx:id="republicanLabel" layoutX="341.0" layoutY="65.0" text="Republican Votes:" />
+      <Label fx:id="democratLabel" layoutX="33.0" layoutY="65.0" text="Democrat Votes:" />
+      <Label fx:id="republicanLabel" layoutX="231.0" layoutY="65.0" text="Republican Votes:" />
+      <Label fx:id="winner" layoutX="448.0" layoutY="65.0" text="Winner: " />
+      <PieChart fx:id="piechart" layoutX="62.0" layoutY="273.0" />
    </children>
 </AnchorPane>
