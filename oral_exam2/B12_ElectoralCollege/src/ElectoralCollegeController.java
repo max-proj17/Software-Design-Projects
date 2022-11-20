@@ -24,7 +24,7 @@ public class ElectoralCollegeController {
     @FXML
     private Label winner;
     @FXML
-    private PieChart piechart;
+    private PieChart piechart = new PieChart();
 
 
     @FXML
@@ -43,16 +43,19 @@ public class ElectoralCollegeController {
     public void initialize()
     {
 
-        ObservableList<PieChart.Data> pie_chart_data = FXCollections.observableArrayList();
-        javafx.scene.chart.PieChart.Data pc_democrat = new javafx.scene.chart.PieChart.Data("Democrat", 0);
-        javafx.scene.chart.PieChart.Data pc_republican = new javafx.scene.chart.PieChart.Data("Republican", 0);
-        javafx.scene.chart.PieChart.Data pc_undecided = new javafx.scene.chart.PieChart.Data("Undecided", 538);
-        pie_chart_data.add(pc_democrat);
-        pie_chart_data.add(pc_republican);
-        pie_chart_data.add(pc_undecided);
-        piechart = new PieChart(pie_chart_data);
+        ObservableList<PieChart.Data> pie_chart_data = FXCollections.observableArrayList(
+                 new PieChart.Data("Democrat", 0),
+                 new PieChart.Data("Republican", 0),
+                 new PieChart.Data("Undecided", 538)
+        );
+
+        piechart.setData(pie_chart_data);
         piechart.setTitle("Vote Distribution");
-        piechart.setVisible(true);
+        piechart.getData().get(0).getNode().setStyle("-fx-pie-color: blue");
+        piechart.getData().get(1).getNode().setStyle("-fx-pie-color: red");
+        piechart.getData().get(2).getNode().setStyle("-fx-pie-color: purple");
+        piechart.setLegendVisible(false);
+
 
         final String[] states_list;
         states_list = new String[]{"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
@@ -90,30 +93,24 @@ public class ElectoralCollegeController {
 
                     String selected = rb.getText();
                     String state = states.getValue();
-                    System.out.println(state);
-                    System.out.println(selected);
                     //If democrat is selected, democrats don't have it and republicans have it
                     if (selected.equals("Democrat") && !democrat_votes.get(state) && republican_votes.get(state)) {
-                        System.out.println("Vote for democrat");
                         democrat_score += vote_amount.get(state);
                         republican_score -= vote_amount.get(state);
                         republican_votes.put(state, false);
                         democrat_votes.put(state, true);
 
                     } else if (selected.equals("Democrat") && !democrat_votes.get(state) && !republican_votes.get(state)) {
-                        System.out.println("Vote for democrat");
                         democrat_score += vote_amount.get(state);
                         democrat_votes.put(state, true);
 
                     } else if (selected.equals("Republican") && !republican_votes.get(state) && democrat_votes.get(state)) {
-                        System.out.println("Vote for republican");
                         democrat_score -= vote_amount.get(state);
                         republican_score += vote_amount.get(state);
                         republican_votes.put(state, true);
                         democrat_votes.put(state, false);
 
                     } else if (selected.equals("Republican") && !republican_votes.get(state) && !democrat_votes.get(state)) {
-                        System.out.println("Vote for republican");
                         republican_score += vote_amount.get(state);
                         republican_votes.put(state, true);
                     } else if (selected.equals("Undecided")) {
@@ -130,9 +127,9 @@ public class ElectoralCollegeController {
                     undecided_score = 538 - (democrat_score + republican_score);
 
                     //set pie values
-                    pc_democrat.setPieValue(democrat_score);
-                    pc_republican.setPieValue(republican_score);
-                    pc_undecided.setPieValue(undecided_score);
+                    piechart.getData().get(0).setPieValue(democrat_score);
+                    piechart.getData().get(1).setPieValue(republican_score);
+                    piechart.getData().get(2).setPieValue(undecided_score);
 
 
                     //See if there is a winner
