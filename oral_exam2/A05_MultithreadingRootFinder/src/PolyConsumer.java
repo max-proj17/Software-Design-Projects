@@ -1,21 +1,37 @@
-import java.security.SecureRandom;
+/**
+ * This class has a two-argument constructor and one public method.
+ *
+ * @author Max Finch
+ */
 
 public class PolyConsumer implements Runnable{
 
+    /**
+     * This Circular Buffer contains the input coefficients.
+     */
 
-    private int processed;
-    private final Buffer coefficients;
-    private final Buffer outputRoots;
+    private final CircularBuffer coefficients;
+    /**
+     * This Circular Buffer contains the output coefficients.
+     */
+    private final CircularBuffer outputRoots;
 
-    public PolyConsumer(Buffer coefficients, Buffer outputRoots) //replace this array with proper buffer object later
+    /**
+     * Two-argument constructor
+     * @param coefficients CircularBuffer of input coefficients.
+     * @param outputRoots CircularBuffer of output roots.
+     */
+    public PolyConsumer(CircularBuffer coefficients, CircularBuffer outputRoots) //replace this array with proper buffer object later
     {
         this.coefficients = coefficients;
         this.outputRoots = outputRoots;
 
     }
 
-
-
+    /**
+     * This method computes the roots of the input coefficients and puts
+     * them in the output CircularBuffer.
+     */
     @Override
     public void run() {
         while (CircularBuffer.getNumToSolve() != 0) {
@@ -44,7 +60,6 @@ public class PolyConsumer implements Runnable{
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            processed += 1;
             CircularBuffer.setNumToSolve(CircularBuffer.getNumToSolve()-1);
 
         }

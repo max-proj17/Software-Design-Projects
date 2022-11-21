@@ -4,8 +4,20 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * This class has a main method and 2 public methods.
+ */
 
 public class PolyProducer {
+    /**
+     * This method creates numImputs amount of coefficient sets, puts them in the
+     * inputCoefficients CircularBuffer, and waits to retrieve the roots from the outputRoots
+     * CircularBuffer.
+     * @param inputCoefficients the input CircularBuffer used by PolyProducer and PolyConsumers.
+     * @param outputRoots the output CircularBuffer used by PolyProducer and PolyConsumers.
+     * @param numInputs determines how many coefficient sets to produce;
+     * @param selection determines if certain printouts are executed.
+     */
 
     public static void run(CircularBuffer inputCoefficients, CircularBuffer outputRoots, int numInputs, int selection) {
         Random rand = new Random();
@@ -53,8 +65,11 @@ public class PolyProducer {
 
     }
 
-    public static void main(String [] args) throws InterruptedException
-    {
+    /**
+     * This main method allows the user to compute 30 sets or 3000 sets of coefficients.
+     * @param args ---
+     */
+    public static void main(String [] args) {
 
         ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -102,6 +117,12 @@ public class PolyProducer {
 
         //Buffer inputs = new CircularBuffer();
     }
+
+    /**
+     * This method validates the input so that the task executed is based
+     * of the number 1 or 2
+     * @return number selected
+     */
     public static int inputValidation()
     {
         final Scanner sc = new Scanner(System.in);
