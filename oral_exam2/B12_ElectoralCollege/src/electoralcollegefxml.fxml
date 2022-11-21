@@ -24,6 +24,6 @@
             <Image url="@US-Map.jpg" />
          </image>
       </ImageView>
-      <Pane fx:id="pane" layoutX="3.0" prefHeight="740.0" prefWidth="899.0" />
+      <Pane fx:id="pane" layoutY="255.0" prefHeight="485.0" prefWidth="902.0" />
    </children>
 </AnchorPane>

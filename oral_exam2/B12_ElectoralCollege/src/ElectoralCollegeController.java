@@ -39,7 +39,7 @@ public class ElectoralCollegeController {
     private RadioButton republican;
     private final ToggleGroup options = new ToggleGroup();
     @FXML
-    private ImageView us;
+    private ImageView us = new ImageView();
     @FXML
     private RadioButton undecided;
     private int democrat_score = 0;
@@ -49,7 +49,7 @@ public class ElectoralCollegeController {
     public void initialize()
     {
 
-        us = new ImageView();
+
         //us.setImage(new Image("US-Map.jpg"));
 
         ObservableList<PieChart.Data> pie_chart_data = FXCollections.observableArrayList(
@@ -98,24 +98,28 @@ public class ElectoralCollegeController {
             republican_votes.put(states_list[i], false);
             vote_amount.put(states_list[i], vote_worth[i]);
             circle_indexes.put(states_list[i], i);
-            pane.getChildren().add(new Circle(state_coordinates[i][0], state_coordinates[i][1], 10, Color.PURPLE));
+            pane.getChildren().add(new Circle(state_coordinates[i][0], state_coordinates[i][1]-255, 10, Color.PURPLE));
 
         }
+
 
         democratLabel.setText("Democrat Votes: " + democrat_score);
         republicanLabel.setText("Republican Votes: " + republican_score);
         winner.setText("Winner: ");
-        states.setOnAction(e -> {});
+        states.setOnAction(e -> {System.out.println("Pressed");});
         democrat.setToggleGroup(options);
         republican.setToggleGroup(options);
         undecided.setToggleGroup(options);
 
+
         options.selectedToggleProperty().addListener(new ChangeListener<>() {
+
             @Override
             public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
                 RadioButton rb = (RadioButton) options.getSelectedToggle();
                 
                 if (rb != null) {
+                    System.out.println("RadioButton Pressed");
                     Circle circle_tmp = null;
                     String selected = rb.getText();
                     String state = states.getValue();
@@ -187,6 +191,7 @@ public class ElectoralCollegeController {
                 }
             }
         });
+
 
     }
 
