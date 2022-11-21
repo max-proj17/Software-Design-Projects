@@ -7,6 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane prefHeight="740.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ElectoralCollegeController">
    <children>
@@ -23,5 +24,6 @@
             <Image url="@US-Map.jpg" />
          </image>
       </ImageView>
+      <Pane fx:id="pane" layoutX="3.0" prefHeight="740.0" prefWidth="899.0" />
    </children>
 </AnchorPane>
