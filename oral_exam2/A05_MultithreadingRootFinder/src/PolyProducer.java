@@ -1,15 +1,16 @@
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+
 
 public class PolyProducer {
 
-    public static void run(Buffer inputCoefficients, Buffer outputRoots, int numInputs) {
+    public static void run(CircularBuffer inputCoefficients, CircularBuffer outputRoots, int numInputs, int selection) {
         Random rand = new Random();
         double[] rootArray = new double[3];
-        int numSet = 1;
+
         int c1;
         int c2;
         int c3;
@@ -21,7 +22,6 @@ public class PolyProducer {
                 c1 = rand.nextInt(2000) - 1000;
                 c2 = rand.nextInt(2000) - 1000;
                 c3 = rand.nextInt(2000) - 1000;
-                System.out.println("Producing coefficients set #" + numSet + " : " + c1 + " " + c2 + " " + c3);
                 inputCoefficients.blockPut(new double []{c1,c2,c3});
                 rootArray = outputRoots.blockGet();
 
@@ -29,19 +29,24 @@ public class PolyProducer {
             {
                 Thread.currentThread().interrupt();
             }
-            if(rootArray[2] == 1) // 1 signifies 2 real distinct roots
-            {
-                System.out.println("2 real distinct roots: [root 1 = " + rootArray[0] + ", root 2 = " + rootArray[1] + "]");
+            if(selection == 1) {
+                if (rootArray[2] == 1) // 1 signifies 2 real distinct roots
+                {
+                    System.out.println((i+1) +". " + "2 real distinct roots: [root 1 = " + rootArray[0] + ", root 2 = " + rootArray[1] + "]");
+                } else if (rootArray[2] == 2) //2 signifies two real and equal roots
+                {
+                    System.out.println((i+1) +". " + "2 real and equal roots: [root 1 = root 2 =" + rootArray[0] + "]");
+                } else { //3 signifies the roots are complex numbers
+                    System.out.println((i+1) +". " + "Roots are complex and distinct: [Re = " + rootArray[0] + ", Im = " + rootArray[1] + "]");
+                }
             }
-            else if(rootArray[2] == 2) //2 signifies two real and equal roots
-            {
-                System.out.println("2 real and equal roots: [root 1 = root 2 =" + rootArray[0] + "]");
-            }
-            else { //3 signifies the roots are complex numbers
-                System.out.println("Roots are complex and distinct: [Re = " + rootArray[0] + ", Im = " + rootArray[1] + "]");
-            }
-            numSet++;
 
+        }
+        if(selection == 2) {
+            HashMap<String, Integer> tmp = outputRoots.getThreadMap();
+            for (String key : tmp.keySet()) {
+                System.out.println(key + " solved " + tmp.get(key) + " sets of coefficients");
+            }
         }
         //put values in the input buffer if allowed
         //Read them out in the order they arrive
@@ -57,31 +62,42 @@ public class PolyProducer {
         System.out.println("Select either\n1: Generate and solve 30 sets of randomly generated coefficients");
         System.out.println("2: Generate and solve 3000 sets of randomly generated coefficients");
         int selection = inputValidation();
-        Buffer inputs;
-        Buffer outputs;
+        CircularBuffer inputs;
+        CircularBuffer outputs;
 
         if(selection == 1)
         {
 
             int numThreads = 10;
             CircularBuffer.setNumToSolve(30);
-            inputs = new CircularBuffer(5,"Input Buffer");
-            outputs = new CircularBuffer(5,"Output Buffer");
+            inputs = new CircularBuffer(5,"Input Buffer", 1);
+            outputs = new CircularBuffer(5,"Output Buffer", 1);
             while(numThreads!=0)
             {
                 executorService.execute(new PolyConsumer(inputs, outputs));
                 numThreads--;
             }
 
-            run(inputs, outputs, 30);
+            run(inputs, outputs, 30, 1);
 
 
         } else if (selection == 2) {
+            int numThreads = 10;
+            CircularBuffer.setNumToSolve(3000);
+            inputs = new CircularBuffer(5,"Input Buffer", 2);
+            outputs = new CircularBuffer(5,"Output Buffer", 2);
+            while(numThreads!=0)
+            {
+                executorService.execute(new PolyConsumer(inputs, outputs));
+                numThreads--;
+            }
 
+            run(inputs, outputs, 3000, 2);
         }
 
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.MINUTES);
+        System.exit(1);
+
 
 
         //Buffer inputs = new CircularBuffer();
