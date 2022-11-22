@@ -15,22 +15,49 @@ import java.net.Socket;
 import java.util.HashMap;
 /**
  * This class has a main method that defines a Client application.
- *
- * I do not own the following code. This is pulled from Fig. 28.5 of
+ * I added the englishToMorse, morseToEnglish and deriveMessage methods.
+ * I do not own the rest of the following code. This is pulled from Fig. 28.5 of
  * the Java How to Program Textbook (C) Copyright 1992-2018 by Deitel
- * & Associates, Inc. and Pearson Education, Inc. All Rights Reserved.
+ * and Associates, Inc. and Pearson Education, Inc. All Rights Reserved.
+ * @author Max Finch
+ * @author Deitel and Associates
  */
 public class Server extends JFrame 
 {
+   /**
+    * The area where the user inputs a message
+    */
    private final JTextField enterField; // inputs message from user
+   /**
+    * Displays static text to the user
+    */
    private final JTextArea displayArea; // display information to user
+   /**
+    * The output stream to client
+    */
    private ObjectOutputStream output; // output stream to client
+   /**
+    * The input stream from client
+    */
    private ObjectInputStream input; // input stream from client
+   /**
+    * The server socket for the application
+    */
    private ServerSocket server; // server socket
+   /**
+    * The connection to the client
+    */
    private Socket connection; // connection to client
+   /**
+    * A counter for the number of connections
+    */
    private int counter = 1; // counter of number of connections
 
    // set up GUI
+
+   /**
+    * No argument constructor. Sets up the GUI portion of the application.
+    */
    public Server()
    {
       super("Server");
@@ -58,7 +85,11 @@ public class Server extends JFrame
       setVisible(true); // show window
    }
 
-   // set up and run server 
+   // set up and run server
+
+   /**
+    * Sets up  the server to receive and process connections.
+    */
    public void runServer()
    {
       try // set up server to receive connections; process connections
@@ -91,6 +122,11 @@ public class Server extends JFrame
    }
 
    // wait for connection to arrive, then display connection info
+
+   /**
+    * Waits for connection to arrive then displays connection info.
+    * @throws IOException throws if connection breaks halfway through processing.
+    */
    private void waitForConnection() throws IOException
    {
       displayMessage("Waiting for connection\n");
@@ -100,6 +136,11 @@ public class Server extends JFrame
    }
 
    // get streams to send and receive data
+
+   /**
+    * Gets streams to send and receive data
+    * @throws IOException throws if there is an error flushing or creating input/output stream objects
+    */
    private void getStreams() throws IOException
    {
       // set up output stream for objects
@@ -113,6 +154,11 @@ public class Server extends JFrame
    }
 
    // process connection with client
+
+   /**
+    * Processes connection with client
+    * @throws IOException --
+    */
    private void processConnection() throws IOException
    {
       String message = "Connection successful. Please send me a message in English or Morse code. \n" +
@@ -141,6 +187,10 @@ public class Server extends JFrame
    }
 
    // close streams and socket
+
+   /**
+    * Closes streams and socket
+    */
    private void closeConnection() 
    {
       displayMessage("\nTerminating connection\n");
@@ -159,6 +209,11 @@ public class Server extends JFrame
    }
 
    // send message to client
+
+   /**
+    * Sends message to client.
+    * @param message String object to be sent
+    */
    private void sendData(String message)
    {
       try // send object to client
@@ -174,6 +229,11 @@ public class Server extends JFrame
    }
 
    // manipulates displayArea in the event-dispatch thread
+
+   /**
+    * Manipulates displayArea in the event-dispatch thread
+    * @param messageToDisplay String object to be displayed.
+    */
    private void displayMessage(final String messageToDisplay)
    {
       SwingUtilities.invokeLater(
@@ -188,6 +248,11 @@ public class Server extends JFrame
    } 
 
    // manipulates enterField in the event-dispatch thread
+
+   /**
+    * Manipulates enterField in the event-dispatch thread.
+    * @param editable boolean value that determines whether the text-field is editable.
+    */
    private void setTextFieldEditable(final boolean editable)
    {
       SwingUtilities.invokeLater(
@@ -200,6 +265,13 @@ public class Server extends JFrame
          } 
       ); 
    }
+
+   /**
+    * A control method that determines whether the input was in morse code or
+    * in english and calls methods to translate the message to its opposite.
+    * @param input The message the user entered.
+    * @return String object to the translated message.
+    */
    private String deriveMessage(String input)
    {
       if(input.charAt(0) == '-' || input.charAt(0) == '.')
@@ -213,6 +285,13 @@ public class Server extends JFrame
       }
 
    }
+
+   /**
+    * Translates the english input message into morse code and returns
+    * the message as a String.
+    * @param input String to be translated
+    * @return Translated String.
+    */
    private String englishFromMorse(String input)
    {
       StringBuilder returnStr = new StringBuilder();
@@ -252,6 +331,13 @@ public class Server extends JFrame
 
       return returnStr.toString();
    }
+
+   /**
+    * Translates the morse code input message into english and returns
+    * the message as a String.
+    * @param input Morse code to be translated.
+    * @return Translated String.
+    */
    private String morseFromEnglish(String input)
    {
       StringBuilder returnStr = new StringBuilder();

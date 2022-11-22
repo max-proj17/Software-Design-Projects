@@ -17,7 +17,7 @@ import java.net.Socket;
  *
  * I do not own the following code. This is pulled from Fig. 28.5 of
  * the Java How to Program Textbook (C) Copyright 1992-2018 by Deitel
- * & Associates, Inc. and Pearson Education, Inc. All Rights Reserved.
+ * and Associates, Inc. and Pearson Education, Inc. All Rights Reserved.
  */
 public class Client extends JFrame 
 {
