@@ -1,12 +1,25 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * This class has two private methods and two public methods.
+ * @author Max Finch
+ */
+
 public abstract class UPCAEncoder {
 
     //Use hashmap to get String equivalent. 101 + (6)w-b-w-b + 01010 + (6)b-w-b-w + 101
+    /**
+     * HashMap containing the decimal digit to w-b-w-b pattern equivalent.
+     */
     final static HashMap<Integer, String> upc_w_b = new HashMap<>();
+    /**
+     * HashMap containing the decimal digit to b-w-b-w pattern equivalent.
+     */
     final static HashMap<Integer, String> upc_b_w = new HashMap<>();
-
+    /**
+     * Sets up the w-b-w-b and b-w-b-w pattern HashMaps
+     */
     private static void setup()
     {
         upc_w_b.put(0, "0001101"); upc_w_b.put(1, "0011001"); upc_w_b.put(2, "0010011"); upc_w_b.put(3, "0111101"); upc_w_b.put(4, "0100011");
@@ -16,6 +29,12 @@ public abstract class UPCAEncoder {
         upc_b_w.put(5, "1001110"); upc_b_w.put(6, "1010000"); upc_b_w.put(7, "1000100"); upc_b_w.put(8, "1001000"); upc_b_w.put(9, "1110100");
 
     }
+
+    /**
+     * Creates the check digit for the input decimal UPC-A code.
+     * @param nums array of numbers of the previously accounted for digits.
+     * @return The computed check digit.
+     */
     private static int checkDigitCreator(int[] nums) {
         int odd_digits = nums[0] + nums[2] + nums[4] + nums[6] + nums[8] + nums[10];
         int even_digits = nums[1] + nums[3] + nums[5] + nums[7] + nums[9];
@@ -28,6 +47,12 @@ public abstract class UPCAEncoder {
         return result;
 
     }
+
+    /**
+     * Encodes the decimal UPC-A code into its Binary equivalent.
+     * @param input The String to be encoded.
+     * @return The encoded String.
+     */
     public static String encode(String input)
     {
         setup();
@@ -51,6 +76,11 @@ public abstract class UPCAEncoder {
         returnStr.append("101");
         return returnStr.toString();
     }
+
+    /**
+     * Validates the UPC-A String given by the user
+     * @return Validated String input
+     */
     public static String inputValidation()
     {
         final Scanner sc = new Scanner(System.in);

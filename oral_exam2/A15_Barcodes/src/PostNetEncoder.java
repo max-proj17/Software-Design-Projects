@@ -2,10 +2,20 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * This class has 4 public methods and one private method.
+ * @author Max Finch
+ */
 public abstract class PostNetEncoder {
 
+    /**
+     * HashMap to translate the decimal digits to PostNet binary.
+     */
     final static HashMap<Integer, String>  binary_equiv = new HashMap<>();
 
+    /**
+     * Sets up the HashMap to be used to encode the zip code
+     */
     public static void setup()
     {
         binary_equiv.put(0, "11000"); binary_equiv.put(1, "00011"); binary_equiv.put(2, "00101");
@@ -15,7 +25,21 @@ public abstract class PostNetEncoder {
 
 
     }
+
+    /**
+     * Computes the checksum digit for the input zipcode
+     * @param start the added up digits of the input zip code.
+     * @return the checksum digit.
+     */
     public static int checkSum(int start) {return 10- (start % 10);}
+
+    /**
+     * Creates a '|' and '.' representation of the binary representation of
+     * the zip code.
+     * @param nums Array of the numbers to be encoded
+     * @param length The amount of positions filled in nums
+     * @return the '|' and '.' coded String object.
+     */
     public static String returnStringCreator (int [] nums, int length)
     {
         StringBuilder returnStr = new StringBuilder();
@@ -44,6 +68,11 @@ public abstract class PostNetEncoder {
         }
         return returnStr.toString();
     }
+
+    /**
+     * Validates the input String to verify if it is a valid zip code.
+     * @return The validated String object.
+     */
     private static String inputValidation()
     {
         final Scanner sc = new Scanner(System.in);
@@ -82,6 +111,13 @@ public abstract class PostNetEncoder {
         return returnStr;
 
     }
+
+    /**
+     * The entire process for Encoding the String from inputValidation. It retrieves the
+     * integer value of each character, computes a checkDigit and then uses returnStringCreator
+     * to create the '|' and '.' representation.
+     * @return The encoded String object.
+     */
     public static String encode()
     {
         //Input validation

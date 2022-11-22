@@ -1,16 +1,25 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * This class contains two public methods and one private method.
+ * @author Max Finch
+ */
 public abstract class UPCADecoder {
-    //User input check
-    //For now just require input to be spaced. We can change later.
-    //Loop through input without 101's and middle and get integer.
-    //Get check digit at end.
 
+    /**
+     * HashMap containing the w-b-w-b pattern to decimal digit equivalent.
+     */
     final static HashMap<String, Integer> upc_w_b = new HashMap<>();
+    /**
+     * HashMap containing the b-w-b-w pattern to decimal digit equivalent.
+     */
     final static HashMap<String, Integer> upc_b_w = new HashMap<>();
 
 
+    /**
+     * Sets up the w-b-w-b and b-w-b-w pattern HashMaps
+     */
     private static void setup()
     {
         upc_w_b.put("0001101", 0); upc_w_b.put("0011001", 1); upc_w_b.put("0010011", 2); upc_w_b.put("0111101", 3); upc_w_b.put("0100011", 4);
@@ -20,6 +29,12 @@ public abstract class UPCADecoder {
         upc_b_w.put("1001110", 5); upc_b_w.put("1010000", 6); upc_b_w.put("1000100", 7); upc_b_w.put("1001000", 8); upc_b_w.put("1110100", 9);
 
     }
+
+    /**
+     * Decodes the UPC-A code to its digit equivalent.
+     * @param input String of UPC-A code to decode
+     * @return returns the decoded String.
+     */
     public static String decode(String input)
     {
         setup();
@@ -42,6 +57,10 @@ public abstract class UPCADecoder {
                 "\nProduct code: " + returnStr;
     }
 
+    /**
+     * Validates the UPC-A String given by the user
+     * @return Validated String input
+     */
     public static String inputValidation()
     {
         final Scanner sc = new Scanner(System.in);

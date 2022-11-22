@@ -2,10 +2,20 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
-public abstract class PostNetDecoder {
+/**
+ * This class has three public methods and one private method.
+ * @author Max Finch
+ */
 
+public abstract class PostNetDecoder {
+    /**
+     * HashMap to translate the PostNet binary to decimal digits
+     */
     final static HashMap<String, Integer> binary_equiv = new HashMap<>();
 
+    /**
+     * Sets up the HashMap to be used to decode the PostNet code
+     */
     public static void setup()
     {
         binary_equiv.put("11000", 0); binary_equiv.put("00011", 1); binary_equiv.put("00101", 2);
@@ -15,6 +25,11 @@ public abstract class PostNetDecoder {
 
 
     }
+
+    /**
+     * Enters a validation loop to retrieve a valid PostNet code.
+     * @return String object of the valid input PostNet code
+     */
     private static String inputValidation()
     {
         final Scanner sc = new Scanner(System.in);
@@ -51,6 +66,12 @@ public abstract class PostNetDecoder {
         return returnStr;
 
     }
+
+    /**
+     * Decodes the split input String and returns a String object.
+     * @param nums the split input message from the user.
+     * @return the decoded message.
+     */
     public static String decode(String [] nums)
     {
 
@@ -70,6 +91,11 @@ public abstract class PostNetDecoder {
         // - return the String when built
         return binary_rep.toString();
     }
+
+    /**
+     * A single function used to trigger the decoding program.
+     * @return the decoded message.
+     */
     public static String process()
     {
         setup();

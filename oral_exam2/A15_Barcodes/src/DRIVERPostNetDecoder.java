@@ -1,7 +1,13 @@
-
-
+/**
+ * This class contains one main method
+ * @author Max Finch
+ */
 public class DRIVERPostNetDecoder {
-
+    /**
+     * This method will automatically be called when DRIVERPostNetDecoder
+     * is run.
+     * @param args Command line arguments.
+     */
     public static void main (String [] args)
     {
 
