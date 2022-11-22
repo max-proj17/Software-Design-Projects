@@ -13,7 +13,13 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
-
+/**
+ * This class has a main method that defines a Client application.
+ *
+ * I do not own the following code. This is pulled from Fig. 28.5 of
+ * the Java How to Program Textbook (C) Copyright 1992-2018 by Deitel
+ * & Associates, Inc. and Pearson Education, Inc. All Rights Reserved.
+ */
 public class Server extends JFrame 
 {
    private final JTextField enterField; // inputs message from user

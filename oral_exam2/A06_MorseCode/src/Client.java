@@ -12,18 +12,50 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-
+/**
+ * This class has a main method that defines a Client application.
+ *
+ * I do not own the following code. This is pulled from Fig. 28.5 of
+ * the Java How to Program Textbook (C) Copyright 1992-2018 by Deitel
+ * & Associates, Inc. and Pearson Education, Inc. All Rights Reserved.
+ */
 public class Client extends JFrame 
 {
+   /**
+    * enters information from user
+    */
    private final JTextField enterField; // enters information from user
+   /**
+    * display information to user
+    */
    private final JTextArea displayArea; // display information to user
+   /**
+    * output stream to server
+    */
    private ObjectOutputStream output; // output stream to server
+   /**
+    * input stream from server
+    */
    private ObjectInputStream input; // input stream from server
+   /**
+    *  message from server
+    */
    private String message = ""; // message from server
+   /**
+    * host server for this application
+    */
    private final String chatServer; // host server for this application
+   /**
+    * socket to communicate with server
+    */
    private Socket client; // socket to communicate with server
 
    // initialize chatServer and set up GUI
+
+   /**
+    * One argument constructor
+    * @param host determines the server the client connects to.
+    */
    public Client(String host)
    {
       super("Client");
@@ -54,6 +86,10 @@ public class Client extends JFrame
    }
 
    // connect to server and process messages from server
+
+   /**
+    * Processes input and output streams until the Client terminates the connection.
+    */
    public void runClient() 
    {
       try // connect to server, get streams, process connection
@@ -77,6 +113,11 @@ public class Client extends JFrame
    }
 
    // connect to server
+
+   /**
+    * Connects to the IP address of the server and port number.
+    * @throws IOException throws if the server with the entered port is being used or not found
+    */
    private void connectToServer() throws IOException
    {      
       displayMessage("Attempting connection\n");
@@ -90,6 +131,11 @@ public class Client extends JFrame
    }
 
    // get streams to send and receive data
+
+   /**
+    * Get streams to send and receive data.
+    * @throws IOException throws if no streams can be received
+    */
    private void getStreams() throws IOException
    {
       // set up output stream for objects
@@ -103,6 +149,11 @@ public class Client extends JFrame
    }
 
    // process connection with server
+
+   /**
+    * Retrieves messages from the Server and displays them.
+    * @throws IOException throws if an error occurs in reading the input object.
+    */
    private void processConnection() throws IOException
    {
       // enable enterField so client user can send messages
@@ -124,6 +175,10 @@ public class Client extends JFrame
    }
 
    // close streams and socket
+
+   /**
+    * Closes streams and socket between client and server.
+    */
    private void closeConnection() 
    {
       displayMessage("\nClosing connection");
@@ -142,6 +197,11 @@ public class Client extends JFrame
    }
 
    // send message to server
+
+   /**
+    * Sends messages to the server.
+    * @param message the message to be sent.
+    */
    private void sendData(String message)
    {
       try // send object to server
@@ -157,6 +217,11 @@ public class Client extends JFrame
    }
 
    // manipulates displayArea in the event-dispatch thread
+
+   /**
+    * Manipulates displayArea in the event-dispatch thread
+    * @param messageToDisplay the message to be displayed
+    */
    private void displayMessage(final String messageToDisplay)
    {
       SwingUtilities.invokeLater(
@@ -171,6 +236,11 @@ public class Client extends JFrame
    } 
 
    // manipulates enterField in the event-dispatch thread
+
+   /**
+    * Manipulates enterField in the event-dispatch thread
+    * @param editable determines whether the text-field is editable.
+    */
    private void setTextFieldEditable(final boolean editable)
    {
       SwingUtilities.invokeLater(
