@@ -1,12 +1,24 @@
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * This class contains 4 public methods and 1 private method.
+ * @author Max Finch
+ */
+
 public abstract class Decryptor {
 
-
+    /**
+     * Array of all letters in the alphabet.
+     */
     final static char[] alphabet = {'Z', 'Y', 'X', 'W', 'V', 'U', 'T', 'S', 'R', 'Q', 'P', 'O', 'N',
         'M', 'L', 'K', 'J', 'I', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A'};
 
+    /**
+     * This method derives the key from the String input and returns the int array equivalent.
+     * @param input Key from user.
+     * @return Derived int array from user input.
+     */
     public static int[] deriveKey(String input)
     {
         String [] strValues = input.split(",");
@@ -19,6 +31,14 @@ public abstract class Decryptor {
         }
         return values;
     }
+
+    /**
+     * Decrypts the encrypted file using the key file. Returns String object of the decrypted message.
+     * @param keyPath PATH to the key file.
+     * @param encryptPath PATH to the encrypted file.
+     * @return String object contained the decrypted message.
+     * @throws IOException throws if there is an exception beyond IOException.
+     */
     public static String decrypt(String keyPath, String encryptPath) throws IOException {
         //Read in keyPath file then encryptPath file
         BufferedReader in_key = null;
@@ -67,6 +87,15 @@ public abstract class Decryptor {
         return returnStr.toString();
 
     }
+
+    /**
+     * This binary search method is meant to improve runtime of finding a specific character in the
+     * alphabet array. Returns the position of the character as an integer.
+     * @param c Character to be found.
+     * @param higher Upper bound of the current level of search.
+     * @param lower Lower bound of the current level of search.
+     * @return Index of the character to be found.
+     */
     private static int asciiBinarySearch(char c, int higher, int lower)
     {
 
@@ -90,6 +119,11 @@ public abstract class Decryptor {
             }
         }
     }
+
+    /**
+     * Validates the PATH of files.
+     * @return A string of a valid PATH.
+     */
     public static String pathValidation()
     {
         final Scanner sc = new Scanner(System.in);
@@ -118,6 +152,12 @@ public abstract class Decryptor {
         }while(!valid);
         return returnStr;
     }
+
+    /**
+     * This main method runs the Decryptor program.
+     * @param args command-line arguments
+     * @throws IOException --
+     */
     public static void main(String [] args) throws IOException {
 
         String keyPath;

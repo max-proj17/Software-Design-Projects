@@ -2,11 +2,23 @@ import java.io.*;
 
 import java.util.Scanner;
 
+/**
+ * This class contains 4 public methods and 2 private methods.
+ * @author Max Finch
+ */
+
 public abstract class Encryptor {
 
+    /**
+     * Array of all letters in the alphabet.
+     */
      final static char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                                     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-
+    /**
+     * This method derives the key from the String input and returns the int array equivalent.
+     * @param input Key from user.
+     * @return Derived int array from user input.
+     */
     public static int[] deriveKey(String input) //input is the string of all n_values
     {
 
@@ -20,6 +32,10 @@ public abstract class Encryptor {
         }
         return values;
     }
+    /**
+     * Validates the PATH of files.
+     * @return A string of a valid PATH.
+     */
     public static String pathValidation()
     {
         final Scanner sc = new Scanner(System.in);
@@ -48,6 +64,14 @@ public abstract class Encryptor {
         }while(!valid);
         return returnStr;
     }
+
+    /**
+     * Takes an input message and a path to the key file and produces a file with
+     * the encrypted message
+     * @param inputMessage Message to encrypt.
+     * @param path PATH to retrieve the key file from.
+     * @throws IOException --
+     */
     public static void cypheredMessage(String inputMessage, String path) throws IOException {
 
         //Read in file, retrieve starting index to read N Values from and the values themselves
@@ -109,6 +133,11 @@ public abstract class Encryptor {
 
     }
 
+    /**
+     * Creates an encrypted file it one doesn't exist already.
+     * @return The created file for encryption.
+     * @throws IOException --
+     */
     private static File makeEncryptedFile() throws IOException {
         File encryptedMsg = new File("oral_exam2/B10_OneTimePad/Files/encrypted.txt");
         if(encryptedMsg.exists())
@@ -126,7 +155,14 @@ public abstract class Encryptor {
         }
         return encryptedMsg;
     }
-
+    /**
+     * This binary search method is meant to improve runtime of finding a specific character in the
+     * alphabet array. Returns the position of the character as an integer.
+     * @param c Character to be found.
+     * @param higher Upper bound of the current level of search.
+     * @param lower Lower bound of the current level of search.
+     * @return Index of the character to be found.
+     */
     private static int asciiBinarySearch(char c, int higher, int lower)
     {
 
@@ -150,6 +186,11 @@ public abstract class Encryptor {
             }
         }
     }
+    /**
+     * This main method runs the Encryptor program.
+     * @param args command-line arguments
+     * @throws IOException --
+     */
     public static void main (String [] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         String path;
