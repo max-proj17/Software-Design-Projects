@@ -5,8 +5,17 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * This class 3 public methods.
+ * @author Max Finch
+ */
 public class KeyGenerator {
 
+    /**
+     * Creates a file of N-Values to be used during encryption and decryption
+     * @param msgLength Message to make N-Values for.
+     * @throws IOException Throws if an I/O operation is interrupted.
+     */
     public static void generateNValues(int msgLength) throws IOException {
         File nValues = new File("oral_exam2/B10_OneTimePad/Files/n_values.txt");
         Random rand = new Random();
@@ -48,6 +57,11 @@ public class KeyGenerator {
         fileWriter.close();
 
     }
+
+    /**
+     * Validates the number of n values requested.
+     * @return Number of n values requested.
+     */
     public static int inputValidation()
     {
         final Scanner sc = new Scanner(System.in);
@@ -77,6 +91,12 @@ public class KeyGenerator {
         }while(!valid);
         return values_length;
     }
+
+    /**
+     * This method is called when KeyGenerator is run.
+     * @param args Command line arguments
+     * @throws IOException --
+     */
     public static void main(String [] args) throws IOException {
         System.out.println("How many N values would you like to generate?\n" +
                 "Number must be greater than 10");
