@@ -19,7 +19,7 @@
       <Label fx:id="republicanLabel" layoutX="231.0" layoutY="65.0" text="Republican Votes:" />
       <Label fx:id="winner" layoutX="448.0" layoutY="65.0" text="Winner: " />
       <PieChart fx:id="piechart" layoutX="533.0" layoutY="40.0" prefHeight="235.0" prefWidth="337.0" title="Vote Distribution" />
-      <ImageView fx:id="us" fitHeight="443.0" fitWidth="775.0" layoutX="77.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="443.0" fitWidth="775.0" layoutX="77.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@US-Map.jpg" />
          </image>

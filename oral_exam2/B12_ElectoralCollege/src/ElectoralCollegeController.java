@@ -6,51 +6,102 @@ import javafx.scene.chart.PieChart;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.HashMap;
 
+/**
+ * This class contains one public method.
+ */
 public class ElectoralCollegeController {
 
+    /**
+     * Contains the names of states to manipulate the selected state with radiobutton.
+     */
     @FXML
     private ComboBox <String> states = new ComboBox<>();
+    /**
+     * HashMap that keeps track of the states Democrats have won.
+     */
     private final HashMap<String, Boolean> democrat_votes = new HashMap<>();
+    /**
+     * HashMap that keeps track of the states Republicans have won.
+     */
     private final HashMap<String, Boolean> republican_votes = new HashMap<>();
+    /**
+     * HashMap that contains how many electoral votes each state has.
+     */
     private final HashMap<String, Integer> vote_amount = new HashMap<>();
+    /**
+     * HashMap that contains indexes of circles in state_coordinates. Each circle
+     * represents a State.
+     */
     private final HashMap<String, Integer> circle_indexes = new HashMap<>();
+    /**
+     * Label for Democrat votes.
+     */
     @FXML
     private Label democratLabel;
+    /**
+     * Label for Republican votes.
+     */
     @FXML
     private Label republicanLabel;
+    /**
+     * Label for whoever is declared the winner.
+     */
     @FXML
     private Label winner;
+    /**
+     * Pie chart used to display the proportion of votes.
+     */
     @FXML
     private PieChart piechart = new PieChart();
-
+    /**
+     * This pane is used to group all the circles separate from the anchor pane.
+     */
     @FXML
     private Pane pane = new Pane();
+    /**
+     * Selection for a democrat vote.
+     */
     @FXML
     private RadioButton democrat;
-
+    /**
+     * Selection for a Republican vote.
+     */
     @FXML
     private RadioButton republican;
+    /**
+     * Used to handle events of all three radio buttons.
+     */
     private final ToggleGroup options = new ToggleGroup();
-    @FXML
-    private ImageView us = new ImageView();
+    /**
+     * Selection for an undecided vote
+     */
     @FXML
     private RadioButton undecided;
+    /**
+     * Keeps track of the democrat total votes.
+     */
     private int democrat_score = 0;
+    /**
+     * Keeps track of the republican total votes.
+     */
     private int republican_score = 0;
+    /**
+     * Keeps track of the undecided total votes.
+     */
     private int undecided_score = 0;
+
+    /**
+     * Sets up all data structures and listeners to use in updating the GUI based on events.
+     */
 
     public void initialize()
     {
-
-
-        //us.setImage(new Image("US-Map.jpg"));
 
         ObservableList<PieChart.Data> pie_chart_data = FXCollections.observableArrayList(
                  new PieChart.Data("Democrat", 0),
