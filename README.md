@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Software Design ECE:3330 Fall 2022
 =======================
 
@@ -50,3 +51,7 @@ Intended directory structure for the content in your repository
            ...
         {canonical_name_from_grid}
 ```
+=======
+# Software-Design-Projects
+A collection of software projects I completed in my Introduction to Software Design class!
+>>>>>>> 3c523436561233cf86b29e979997c13ec00d84eb
